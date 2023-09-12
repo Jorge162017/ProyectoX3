@@ -172,7 +172,7 @@ fun register(modifier: Modifier = Modifier){
         }
         Spacer(modifier = Modifier.height(30.dp))
         Row {
-            Icon(painter = painterResource(id = R.drawable.baseline_lock_24),
+            Icon(painter = painterResource(id = R.drawable.local_phone_24),
                 contentDescription = null,
                 modifier = modifier.size(60.dp),
                 tint =  Color(224, 225, 221)
