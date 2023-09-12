@@ -24,13 +24,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignUp"
+            android:name=".auth.SignUp"
             android:exported="true"
             android:label="Laboratorio6"
             android:theme="@style/Theme.Laboratorio7">
         </activity>
         <activity
-            android:name=".Inicio"
+            android:name=".auth.Inicio"
             android:exported="true"
             android:label="Laboratorio6"
             android:theme="@style/Theme.Laboratorio7">
