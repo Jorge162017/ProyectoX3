@@ -1,6 +1,8 @@
 package com.example.laboratorio7.auth
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -13,8 +15,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Send
@@ -48,21 +52,34 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.laboratorio7.R
+import com.example.laboratorio7.auth.UserModel.UserViewModel
 import com.example.laboratorio7.ui.theme.Laboratorio7Theme
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignUp(navController: NavHostController) {
+fun SignUp(navController: NavHostController,  viewModel: UserViewModel = viewModel()) {
     val context = LocalContext.current
+
+    var nameText by remember { mutableStateOf(TextFieldValue("")) }
+    var lastnameText by remember { mutableStateOf(TextFieldValue("")) }
     var textValue by remember { mutableStateOf(TextFieldValue("")) }
+    var emailText by remember { mutableStateOf(TextFieldValue("")) }
     var passwordText by remember { mutableStateOf(TextFieldValue("")) }
     var phoneText by remember { mutableStateOf(TextFieldValue("")) }
+    val coroutineScope = CoroutineScope(Dispatchers.Main)
+
     Column (
         verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.verticalScroll(rememberScrollState())
     ) {
         Surface(
             modifier = Modifier
@@ -130,6 +147,8 @@ fun SignUp(navController: NavHostController) {
             )
             Spacer(modifier = Modifier.height(50.dp))
         }
+
+        //nombre
         Row {
             Icon(
                 painter = painterResource(id = R.drawable.baseline_account_box_24),
@@ -138,13 +157,13 @@ fun SignUp(navController: NavHostController) {
                 tint = Color(47, 47, 49)
             )
             TextField(
-                value = textValue, // Utiliza textValue como el valor del TextField
+                value = nameText,
                 onValueChange = { newText ->
                     if (newText.text.length <= 10) {
-                        textValue = newText // Actualiza textValue en lugar de text
+                        nameText = newText
                     }
                 },
-                label = { Text("Email o Username", color = Color(120, 120, 122)) },
+                label = { Text("Nombre", color = Color(120, 120, 122)) },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text,
@@ -163,6 +182,79 @@ fun SignUp(navController: NavHostController) {
 
         }
         Spacer(modifier = Modifier.height(30.dp))
+
+        // apellido
+
+        Row {
+            Icon(
+                painter = painterResource(id = R.drawable.baseline_account_box_24),
+                contentDescription = null,
+                modifier = Modifier.size(50.dp),
+                tint = Color(47, 47, 49)
+            )
+            TextField(
+                value = lastnameText,
+                onValueChange = { newText ->
+                    if (newText.text.length <= 10) {
+                        lastnameText = newText
+                    }
+                },
+                label = { Text("Apellido", color = Color(120, 120, 122)) },
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Done
+                ),
+                modifier = Modifier,
+                shape = RoundedCornerShape(2.dp),
+                textStyle = TextStyle(color = Color(120, 120, 122)),
+                colors = TextFieldDefaults.textFieldColors(
+                    focusedIndicatorColor = Color(120, 120, 122),
+                    unfocusedIndicatorColor = Color(120, 120, 122),
+                    containerColor = Color(47, 47, 49)
+                ),
+
+                )
+
+        }
+        Spacer(modifier = Modifier.height(30.dp))
+
+        //username
+        Row {
+            Icon(
+                painter = painterResource(id = R.drawable.baseline_account_box_24),
+                contentDescription = null,
+                modifier = Modifier.size(50.dp),
+                tint = Color(47, 47, 49)
+            )
+            TextField(
+                value = textValue, // Utiliza textValue como el valor del TextField
+                onValueChange = { newText ->
+                    if (newText.text.length <= 10) {
+                        textValue = newText // Actualiza textValue en lugar de text
+                    }
+                },
+                label = { Text("Username", color = Color(120, 120, 122)) },
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Done
+                ),
+                modifier = Modifier,
+                shape = RoundedCornerShape(2.dp),
+                textStyle = TextStyle(color = Color(120, 120, 122)),
+                colors = TextFieldDefaults.textFieldColors(
+                    focusedIndicatorColor = Color(120, 120, 122),
+                    unfocusedIndicatorColor = Color(120, 120, 122),
+                    containerColor = Color(47, 47, 49)
+                ),
+
+            )
+
+        }
+        Spacer(modifier = Modifier.height(30.dp))
+
+        //password
         Row {
             Icon(
                 painter = painterResource(id = R.drawable.baseline_lock_24),
@@ -201,6 +293,42 @@ fun SignUp(navController: NavHostController) {
                 )
         }
         Spacer(modifier = Modifier.height(30.dp))
+        //email
+        Row {
+            Icon(
+                painter = painterResource(id = R.drawable.baseline_account_box_24),
+                contentDescription = null,
+                modifier = Modifier.size(50.dp),
+                tint = Color(47, 47, 49)
+            )
+            TextField(
+                value = emailText,
+                onValueChange = { newText ->
+                    if (newText.text.length <= 10) {
+                        emailText = newText
+                    }
+                },
+                label = { Text("Email", color = Color(120, 120, 122)) },
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Done
+                ),
+                modifier = Modifier,
+                shape = RoundedCornerShape(2.dp),
+                textStyle = TextStyle(color = Color(120, 120, 122)),
+                colors = TextFieldDefaults.textFieldColors(
+                    focusedIndicatorColor = Color(120, 120, 122),
+                    unfocusedIndicatorColor = Color(120, 120, 122),
+                    containerColor = Color(47, 47, 49)
+                ),
+
+                )
+
+        }
+        Spacer(modifier = Modifier.height(30.dp))
+
+        //phone
         Row {
             Icon(
                 painter = painterResource(id = R.drawable.phone),
@@ -251,6 +379,31 @@ fun SignUp(navController: NavHostController) {
 
             onClick = {
 
+                coroutineScope.launch {
+
+                    viewModel.register(
+                        nameText.text, lastnameText.text, textValue.text, emailText.text, phoneText.text,"ROLE_USER",
+                        passwordText.text
+                    )
+
+                    delay(3000)
+
+                    Log.d("register", "Response for login ${viewModel.userUiStateRegister.userSaved}")
+                    if (!viewModel.userUiStateRegister.userSaved.userSaved.name.equals("")) {
+                        navController.navigate("login")
+
+                        Toast.makeText(context, "Se ha registrado exitosamente", Toast.LENGTH_SHORT)
+                            .show()
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "al parecer hay un problema con tu usuario, intenta de nuevo con otro usuario",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                    }
+
+                }
 
             },
             modifier = Modifier

@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 
 
 import com.example.laboratorio7.data.networking.Response.UserDataResponse
+import com.example.laboratorio7.data.networking.Response.UserDataResponseRegister
 import com.example.laboratorio7.data.networking.Response.UserResponse
 import com.example.laboratorio7.data.networking.SharedPreferencesManager
 import com.example.laboratorio7.data.repository.UserRepository
@@ -25,6 +26,15 @@ class UserViewModel(private val repository: UserRepository = UserRepository()) :
             "","","","","","","", emptyArray(),""
         ), ""
     )))
+        private set
+
+    var userUiStateRegister by mutableStateOf(UserUiStateRegister(
+        UserDataResponseRegister(
+        UserResponse(
+            "","","","","","","", emptyArray(),""
+        )
+    )
+    ))
         private set
 
     fun login(username:String, password:String){
@@ -52,6 +62,36 @@ class UserViewModel(private val repository: UserRepository = UserRepository()) :
                 userUiState = UserUiState( UserDataResponse(UserResponse(
                     "","","","","","","", emptyArray(),""
                 ),""), loading = false)
+            }
+        }
+    }
+
+
+
+    fun register( name: String, lastname: String, username: String, email: String, phone: String, role: String, password: String){
+        userUiStateRegister = UserUiStateRegister(
+            UserDataResponseRegister(UserResponse(
+                "","","","","","","", emptyArray(),""))
+            , loading = true)
+
+        viewModelScope.launch {
+            try {
+                val userResponse = repository.saveUser(name, lastname, username, email, phone, role, password)
+                userUiStateRegister = UserUiStateRegister(userResponse, loading = false)
+
+                Log.d("viewModelUser", "Response for register ${userUiStateRegister.userSaved}")
+
+
+            } catch (e: Exception) {
+                // Maneja errores aquí
+
+                Log.d("error", "Response for login ${                e.printStackTrace()
+                }")
+
+                userUiStateRegister = UserUiStateRegister(
+                    UserDataResponseRegister(UserResponse(
+                        "","","","","","","", emptyArray(),""))
+                    , loading = false)
             }
         }
     }

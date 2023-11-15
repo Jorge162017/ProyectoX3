@@ -6,6 +6,9 @@ data class UsersDataResponse(val users: List<UserResponse>)
 
 data class UserDataResponse(val user: UserResponse, val token:String)
 
+data class UserDataResponseRegister(val userSaved: UserResponse)
+
+
 data class UserResponse(
     @SerializedName("_id") val id: String,
     @SerializedName("name") val name: String,
