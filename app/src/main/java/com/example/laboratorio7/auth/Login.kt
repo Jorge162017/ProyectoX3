@@ -106,6 +106,24 @@ fun Login(navController: NavHostController, viewModel: UserViewModel = viewModel
             }
         } else {
 
+            if (viewModel.userUiState.executed) {
+                if (!viewModel.userUiState.user.token.equals("")) {
+                    navController.navigate("homeuser")
+                    sharedPreferencesManager.savetoken(viewModel.userUiState.user.token);
+                    sharedPreferencesManager.saveObject(
+                        "user",
+                        viewModel.userUiState.user.user
+                    )
+
+                } else {
+                    Toast.makeText(
+                        context,
+                        "Tus credenciales son incorrectas.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                }
+            }
 
 
             Row(
@@ -169,7 +187,12 @@ fun Login(navController: NavHostController, viewModel: UserViewModel = viewModel
                             textValue = newText // Actualiza textValue en lugar de text
                         }
                     },
-                    label = { Text("Username (max 10 characters)", color = Color(120, 120, 122)) },
+                    label = {
+                        Text(
+                            "Username (max 10 characters)",
+                            color = Color(120, 120, 122)
+                        )
+                    },
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Text,
@@ -242,28 +265,8 @@ fun Login(navController: NavHostController, viewModel: UserViewModel = viewModel
 
                     coroutineScope.launch {
 
-                        viewModel.login(textValue.text, passwordText.text)
+                        val result = viewModel.login(textValue.text, passwordText.text)
 
-                        delay(3000)
-
-                        Log.d("login", "Response for login ${viewModel.userUiState.user.token}")
-                        if (!viewModel.userUiState.user.token.equals("")) {
-                            navController.navigate("homeuser")
-                            sharedPreferencesManager.savetoken(viewModel.userUiState.user.token);
-                            sharedPreferencesManager.saveObject(
-                                "user",
-                                viewModel.userUiState.user.user
-                            )
-                            Toast.makeText(context, "Ingreso de sesión exitoso", Toast.LENGTH_SHORT)
-                                .show()
-                        } else {
-                            Toast.makeText(
-                                context,
-                                "Tus credenciales son incorrectas.",
-                                Toast.LENGTH_SHORT
-                            ).show()
-
-                        }
 
                     }
 
@@ -286,7 +289,6 @@ fun Login(navController: NavHostController, viewModel: UserViewModel = viewModel
                 }
 
             }
-
         }
     }
 }

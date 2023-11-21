@@ -2,6 +2,7 @@ package com.example.laboratorio7.auth.UserModel
 
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -42,13 +43,13 @@ class UserViewModel(private val repository: UserRepository = UserRepository()) :
             UserDataResponse(UserResponse(
             "","","","","","","", emptyArray(),""
             ), "")
-            , loading = true)
+            , loading = true, executed = false)
 
         viewModelScope.launch {
             // Aquí deberías realizar la lógica de inicio de sesión con el repositorio
             try {
                 val userResponse = repository.login(username, password)
-                userUiState = UserUiState(userResponse, loading = false)
+                userUiState = UserUiState(userResponse, loading = false, executed = true)
 
                 Log.d("viewModelUser", "Response for login ${userUiState.user.token}")
 
@@ -61,7 +62,7 @@ class UserViewModel(private val repository: UserRepository = UserRepository()) :
 
                 userUiState = UserUiState( UserDataResponse(UserResponse(
                     "","","","","","","", emptyArray(),""
-                ),""), loading = false)
+                ),""), loading = false, executed = true)
             }
         }
     }
@@ -72,12 +73,12 @@ class UserViewModel(private val repository: UserRepository = UserRepository()) :
         userUiStateRegister = UserUiStateRegister(
             UserDataResponseRegister(UserResponse(
                 "","","","","","","", emptyArray(),""))
-            , loading = true)
+            , loading = true, executed = false)
 
         viewModelScope.launch {
             try {
                 val userResponse = repository.saveUser(name, lastname, username, email, phone, role, password)
-                userUiStateRegister = UserUiStateRegister(userResponse, loading = false)
+                userUiStateRegister = UserUiStateRegister(userResponse, loading = false, executed = true)
 
                 Log.d("viewModelUser", "Response for register ${userUiStateRegister.userSaved}")
 
