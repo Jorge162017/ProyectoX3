@@ -257,7 +257,7 @@ fun AddTournament(navController: NavHostController,  viewModel: TournamentViewMo
                         ).show()
                     } //if para verficar que esten todos los campos
 
-                    delay(4up000)
+                    delay(4000)
 
                     if (!viewModel.tournamentUiState.saveLeague.name.equals("")) {
                         navController.navigate("homeuser")

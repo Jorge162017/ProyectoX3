@@ -5,6 +5,7 @@ import com.example.laboratorio7.data.networking.Response.UserDataResponseRegiste
 import com.example.laboratorio7.data.networking.Response.leagueDataResponse
 import com.example.laboratorio7.data.networking.Response.leagueImageDataResponse
 import com.example.laboratorio7.data.networking.Response.leaguesDataResponse
+import com.example.laboratorio7.data.networking.Response.sessionsDataResponse
 import com.example.laboratorio7.data.networking.Response.teamDataResponse
 import com.example.laboratorio7.data.networking.Response.teamsDataResponse
 import okhttp3.MultipartBody
@@ -52,6 +53,10 @@ interface  Api {
     @POST("saveTeam")
     suspend fun saveTeam(@Header("Authorization") authorizationHeader: String, @Body teamRequest: TeamRequest): teamDataResponse
 
+    //sessions
+
+    @GET("getSession/{id}")
+    suspend fun getSession(@Header("Authorization") authorizationHeader: String, @Path("id") id: String): sessionsDataResponse
 }
 
 //user

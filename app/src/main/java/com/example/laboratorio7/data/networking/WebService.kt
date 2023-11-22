@@ -7,6 +7,7 @@ import com.example.laboratorio7.data.networking.Response.UserDataResponseRegiste
 import com.example.laboratorio7.data.networking.Response.leagueDataResponse
 import com.example.laboratorio7.data.networking.Response.leagueImageDataResponse
 import com.example.laboratorio7.data.networking.Response.leaguesDataResponse
+import com.example.laboratorio7.data.networking.Response.sessionsDataResponse
 import com.example.laboratorio7.data.networking.Response.teamDataResponse
 import com.example.laboratorio7.data.networking.Response.teamsDataResponse
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -96,6 +97,13 @@ class WebService {
     suspend fun saveTeam(  token: String, name: String, players: Array<String>, gc: Number, gd: Number,
                               gf: Number, pe: Number, pg: Number, pj: Number, pp: Number, points: Number): teamDataResponse {
         return api.saveTeam(token, TeamRequest(name, players, gc, gd, gf, pe, pg, pj, pp, points))
+    }
+
+
+    //session
+    suspend fun getSession(token: String,   id:String): sessionsDataResponse {
+
+        return api.getSession(token,id)
     }
 
 }
