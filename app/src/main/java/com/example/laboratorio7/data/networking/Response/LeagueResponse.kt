@@ -7,6 +7,8 @@ data class leaguesDataResponse(val leagues: List<LeagueResponse>)
 
 data class leagueDataResponse(val saveLeague: LeagueResponse)
 
+data class leagueImageDataResponse(val league: LeagueResponse)
+
 data class LeagueResponse(
     @SerializedName("_id") val id: String,
     @SerializedName("teams") val teams: Array<String>,

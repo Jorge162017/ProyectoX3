@@ -1,5 +1,6 @@
 package com.example.laboratorio7.tournaments.TournamentModel
 
+import android.graphics.Bitmap
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,7 +23,7 @@ class TournamentViewModel(private val repository: HomeRepository = HomeRepositor
 
 
 
-    fun saveLeague(token:String, name:String, season:String, description:String){
+    fun saveLeague(token:String, name:String, season:String, description:String, bitmap:Bitmap?){
         tournamentUiState = TournamentUiState(
             LeagueResponse("", emptyArray(), emptyArray(),"","","",""), loading = true)
 
@@ -30,15 +31,18 @@ class TournamentViewModel(private val repository: HomeRepository = HomeRepositor
             // Aquí deberías realizar la lógica de inicio de sesión con el repositorio
             try {
                 val leagueResponse = repository.saveLeague(token,name,season,description)
+
+                val imageRespon = repository.uploadImageLeague(bitmap,leagueResponse.saveLeague.id)
+
+
                 tournamentUiState = TournamentUiState(saveLeague = leagueResponse.saveLeague, loading = false)
 
-                Log.d("viewmodelsaveleague", "Response for login ${tournamentUiState.saveLeague}")
 
 
             } catch (e: Exception) {
                 // Maneja errores aquí
 
-                Log.d("error", "Response for login ${                e.printStackTrace()
+                Log.d("error", "Response leagues ${                e.printStackTrace()
                 }")
 
                 tournamentUiState = TournamentUiState(

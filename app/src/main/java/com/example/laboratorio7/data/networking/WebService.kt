@@ -1,14 +1,24 @@
 package com.example.laboratorio7.data.networking
+import android.graphics.Bitmap
+import androidx.compose.ui.graphics.ImageBitmap
 import com.example.laboratorio7.data.networking.Response.PlayerDataResponse
 import com.example.laboratorio7.data.networking.Response.UserDataResponse
 import com.example.laboratorio7.data.networking.Response.UserDataResponseRegister
 import com.example.laboratorio7.data.networking.Response.leagueDataResponse
+import com.example.laboratorio7.data.networking.Response.leagueImageDataResponse
 import com.example.laboratorio7.data.networking.Response.leaguesDataResponse
 import com.example.laboratorio7.data.networking.Response.teamDataResponse
 import com.example.laboratorio7.data.networking.Response.teamsDataResponse
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Retrofit
 import retrofit2.Call
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
 
 
 class WebService {
@@ -44,6 +54,31 @@ class WebService {
         return api.getLeagues(token)
     }
 
+
+    suspend fun uploadImageLeague(  bitmap: Bitmap?, id:String): leagueImageDataResponse {
+        val stream = ByteArrayOutputStream()
+        bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+        val byteArray = stream.toByteArray()
+
+        val tempFile = File.createTempFile("tempImage", ".jpg")
+        val fos = FileOutputStream(tempFile)
+        fos.write(byteArray)
+        fos.flush()
+        fos.close()
+
+        // Crear el RequestBody y MultipartBody.Part
+        val requestFile = tempFile.asRequestBody("image/*".toMediaTypeOrNull())
+        val imagePart = MultipartBody.Part.createFormData("image", tempFile.name, requestFile)
+
+        val requestBody: RequestBody = MultipartBody.Builder()
+            .setType(MultipartBody.FORM)
+            .addFormDataPart(
+                "image",
+                tempFile.name,
+                RequestBody.create("image/*".toMediaTypeOrNull(), byteArray)
+            ).build()
+        return api.uploadImageLeague(id, requestBody)
+    }
 
     suspend fun saveLeague(  token: String, name:String, season:String, description:String): leagueDataResponse {
         return api.saveLeague(token, LeagueRequest(name, season, description))
