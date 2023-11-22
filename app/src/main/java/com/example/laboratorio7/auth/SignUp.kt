@@ -220,7 +220,7 @@ fun SignUp(navController: NavHostController,  viewModel: UserViewModel = viewMod
         //username
         Row {
             Icon(
-                painter = painterResource(id = R.drawable.baseline_account_box_24),
+                painter = painterResource(id = R.drawable.username_signup),
                 contentDescription = null,
                 modifier = Modifier.size(50.dp),
                 tint = Color(47, 47, 49)
@@ -294,7 +294,7 @@ fun SignUp(navController: NavHostController,  viewModel: UserViewModel = viewMod
         //email
         Row {
             Icon(
-                painter = painterResource(id = R.drawable.baseline_account_box_24),
+                painter = painterResource(id = R.drawable.email_signup),
                 contentDescription = null,
                 modifier = Modifier.size(50.dp),
                 tint = Color(47, 47, 49)
