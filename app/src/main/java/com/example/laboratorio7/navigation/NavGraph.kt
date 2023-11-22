@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.laboratorio7.auth.Login
 import com.example.laboratorio7.auth.SignUp
+import com.example.laboratorio7.tournaments.AddTournament
 import com.example.laboratorio7.user.HomeUser
 
 @Composable
@@ -20,6 +21,10 @@ fun NavigationGraph(navController: NavHostController = rememberNavController(), 
         }
         composable("homeuser"){
             HomeUser(navController)
+        }
+        
+        composable("addtournament"){
+            AddTournament(navController = navController)
         }
     }
 }

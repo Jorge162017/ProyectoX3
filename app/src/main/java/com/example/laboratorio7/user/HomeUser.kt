@@ -57,8 +57,13 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Send
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.ui.text.style.TextAlign
 import coil.compose.AsyncImage
+import kotlinx.coroutines.launch
 
 
 val listTournaments = mutableListOf<Tournament>()
@@ -153,21 +158,50 @@ fun HomeUser(navController: NavHostController, viewModel: HomeViewModel = viewMo
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.Center
         ){
-            Text(
-                text = "Football",
-                modifier = Modifier.padding(start = 20.dp),
-                fontSize = 25.sp,
-                color = Color.White,
-                fontWeight = FontWeight.Bold,
-            )
-            Text(
-                text = "Torneos",
-                modifier = Modifier.padding(start = 20.dp),
-                fontSize = 15.sp,
-                color = Color.White,
-                fontWeight = FontWeight.Bold,
-            )
-            Spacer(modifier = Modifier.height(50.dp))
+            Row(){
+                Column{
+                    Text(
+                        text = "Football",
+                        modifier = Modifier.padding(start = 20.dp),
+                        fontSize = 25.sp,
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                    )
+                    Text(
+                        text = "Torneos",
+                        modifier = Modifier.padding(start = 20.dp),
+                        fontSize = 15.sp,
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                    )
+                }
+
+                IconButton(
+
+                    onClick = {
+                        navController.navigate("addtournament")
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(15.dp),
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = Color(3, 121, 255)
+                    ),
+                ) {
+                    Row {
+                        Icon(
+                            imageVector = Icons.Default.Add,
+                            contentDescription = "Agregar Torneo",
+                            tint = Color(255, 255, 255)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(text = "Agregar Torneo", color = Color.White)
+                    }
+
+                }
+            }
+
+
         }
 
         LazyVerticalGrid(
@@ -186,7 +220,9 @@ fun HomeUser(navController: NavHostController, viewModel: HomeViewModel = viewMo
                     AsyncImage(
                             model = "https://tournament.workcodeinc.com:3800/torneo/getImageLeague/"+league.logo,
                             contentDescription = null,
-                            modifier = Modifier.width(150.dp).padding(0.dp,0.dp,10.dp,0.dp),
+                            modifier = Modifier
+                                .width(150.dp)
+                                .padding(0.dp, 0.dp, 10.dp, 0.dp),
                         )
 
                     Text(
