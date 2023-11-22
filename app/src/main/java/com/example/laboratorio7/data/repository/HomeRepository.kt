@@ -1,8 +1,6 @@
 package com.example.laboratorio7.data.repository
 
 
-import com.example.laboratorio7.data.networking.Response.UserDataResponse
-import com.example.laboratorio7.data.networking.Response.UserDataResponseRegister
 import com.example.laboratorio7.data.networking.Response.leagueDataResponse
 import com.example.laboratorio7.data.networking.Response.leaguesDataResponse
 import com.example.laboratorio7.data.networking.WebService

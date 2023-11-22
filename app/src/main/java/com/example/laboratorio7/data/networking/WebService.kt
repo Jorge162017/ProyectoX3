@@ -4,6 +4,8 @@ import com.example.laboratorio7.data.networking.Response.UserDataResponse
 import com.example.laboratorio7.data.networking.Response.UserDataResponseRegister
 import com.example.laboratorio7.data.networking.Response.leagueDataResponse
 import com.example.laboratorio7.data.networking.Response.leaguesDataResponse
+import com.example.laboratorio7.data.networking.Response.teamDataResponse
+import com.example.laboratorio7.data.networking.Response.teamsDataResponse
 import retrofit2.Retrofit
 import retrofit2.Call
 import retrofit2.converter.gson.GsonConverterFactory
@@ -49,6 +51,16 @@ class WebService {
   //jugadores
     suspend fun getPlayersTeam(  token: String): PlayerDataResponse {
         return api.getPlayersTeam(token)
+    }
+
+    //equipos
+    suspend fun getTeams(  token: String): teamsDataResponse{
+        return api.getTeams(token)
+    }
+
+    suspend fun saveTeam(  token: String, name: String, players: Array<String>, gc: Number, gd: Number,
+                              gf: Number, pe: Number, pg: Number, pj: Number, pp: Number, points: Number): teamDataResponse {
+        return api.saveTeam(token, TeamRequest(name, players, gc, gd, gf, pe, pg, pj, pp, points))
     }
 
 }
