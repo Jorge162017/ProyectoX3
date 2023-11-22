@@ -43,6 +43,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -94,7 +95,7 @@ fun SignUp(navController: NavHostController,  viewModel: UserViewModel = viewMod
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "Bienvenido a X3",
+                    text = stringResource(R.string.welcome),
                     modifier = Modifier,
                     fontSize = 40.sp,
                     color = Color.White,
@@ -116,7 +117,7 @@ fun SignUp(navController: NavHostController,  viewModel: UserViewModel = viewMod
                 )
             ) {
                 Text(
-                    text = "Login",
+                    text = stringResource(R.string.login),
                     color = Color.White
                 )
             }
@@ -130,7 +131,7 @@ fun SignUp(navController: NavHostController,  viewModel: UserViewModel = viewMod
                 )
             ) {
                 Text(
-                    text = "Sign Up",
+                    text = stringResource(R.string.signup),
                     color = Color.White
                 )
             }
@@ -141,7 +142,7 @@ fun SignUp(navController: NavHostController,  viewModel: UserViewModel = viewMod
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "SIGN UP",
+                text = stringResource(R.string.signup),
                 modifier = Modifier.padding(start = 20.dp),
                 fontSize = 25.sp,
                 color = Color.White,
@@ -163,7 +164,7 @@ fun SignUp(navController: NavHostController,  viewModel: UserViewModel = viewMod
                 onValueChange = { newText ->
                         nameText = newText
                 },
-                label = { Text("Nombre", color = Color(120, 120, 122)) },
+                label = { Text(stringResource(R.string.name), color = Color(120, 120, 122)) },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text,
@@ -197,7 +198,7 @@ fun SignUp(navController: NavHostController,  viewModel: UserViewModel = viewMod
                 onValueChange = { newText ->
                         lastnameText = newText
                 },
-                label = { Text("Apellido", color = Color(120, 120, 122)) },
+                label = { Text(stringResource(R.string.lastName), color = Color(120, 120, 122)) },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text,
@@ -232,7 +233,7 @@ fun SignUp(navController: NavHostController,  viewModel: UserViewModel = viewMod
                         textValue = newText // Actualiza textValue en lugar de text
                     }
                 },
-                label = { Text("Username", color = Color(120, 120, 122)) },
+                label = { Text(stringResource(R.string.userName), color = Color(120, 120, 122)) },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text,
@@ -269,7 +270,7 @@ fun SignUp(navController: NavHostController,  viewModel: UserViewModel = viewMod
                 },
                 label = {
                     Text(
-                        "Password (max 8 characters)", color = Color(120, 120, 122)
+                        stringResource(R.string.maxPassword), color = Color(120, 120, 122)
                     )
                 },
                 singleLine = true,
@@ -304,7 +305,7 @@ fun SignUp(navController: NavHostController,  viewModel: UserViewModel = viewMod
                 onValueChange = { newText ->
                         emailText = newText
                 },
-                label = { Text("Email", color = Color(120, 120, 122)) },
+                label = { Text(stringResource(R.string.email), color = Color(120, 120, 122)) },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text,
@@ -337,7 +338,7 @@ fun SignUp(navController: NavHostController,  viewModel: UserViewModel = viewMod
                 onValueChange = { newText ->
                         phoneText = newText // Actualiza textValue en lugar de text
                 },
-                label = { Text("Phone", color = Color(120, 120, 122)) },
+                label = { Text(stringResource(R.string.phone), color = Color(120, 120, 122)) },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text,
@@ -421,7 +422,7 @@ fun SignUp(navController: NavHostController,  viewModel: UserViewModel = viewMod
                     tint = Color(255, 255, 255)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                Text(text = "Register", color = Color.White)
+                Text(text = stringResource(R.string.register), color = Color.White)
             }
 
         }

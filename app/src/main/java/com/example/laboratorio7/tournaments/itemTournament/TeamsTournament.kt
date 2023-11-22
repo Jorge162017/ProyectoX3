@@ -33,6 +33,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -113,7 +114,7 @@ fun TeamsTournament(navController: NavHostController, tournament:String, viewMod
                             tint = Color(255, 255, 255)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(text = "Agregar Equipo", color = Color.White)
+                        Text(text = stringResource(R.string.add), color = Color.White)
                     }
 
                 }
@@ -156,18 +157,22 @@ fun TeamsTournament(navController: NavHostController, tournament:String, viewMod
                                     fontSize = 20.sp
                                 )
                                 Text(
-                                    text = "Partidos Jugados(PJ): ${team.pj}",
+                                    //text = "Partidos Jugados(PJ): ${team.pj}",
+                                    text = stringResource(R.string.played)+"${team.pj}",
                                 )
                                 Text(
-                                    text = "Partidos Ganados(PG): ${team.pg}",
+                                    //text = "Partidos Ganados(PG): ${team.pg}",
+                                    text = stringResource(R.string.won)+"${team.pg}",
                                     color = Color(56, 176, 0)
                                 )
                                 Text(
-                                    text = "Partidos Empatados(PE): ${team.pe}",
+                                    //text = "Partidos Empatados(PE): ${team.pe}",
+                                    text = stringResource(R.string.tied)+"${team.pe}",
                                     color = Color(250, 163, 7)
                                 )
                                 Text(
-                                    text = "Partidos Perdidos(PP): ${team.pp}",
+                                    //text = "Partidos Perdidos(PP): ${team.pp}",
+                                    text = stringResource(R.string.lost)+"${team.pp}",
                                     color = Color(208, 0, 0)
                                 )
 
@@ -187,7 +192,7 @@ fun TeamsTournament(navController: NavHostController, tournament:String, viewMod
                                     ),
                                 ) {
                                     // No hay icono en esta sección
-                                    Text(text = "Ver Plantilla", color = Color.White)
+                                    Text(text = stringResource(R.string.view), color = Color.White)
                                 }
                             }
                         }

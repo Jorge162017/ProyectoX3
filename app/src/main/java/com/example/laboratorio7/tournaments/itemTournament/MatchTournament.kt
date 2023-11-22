@@ -29,12 +29,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.laboratorio7.R
 import com.example.laboratorio7.data.networking.SharedPreferencesManager
 import com.example.laboratorio7.tournaments.itemTournament.MatchModel.MatchViewModel
 import com.example.laboratorio7.user.HomeModel.HomeViewModel
@@ -125,22 +127,27 @@ fun MatchTournament(tournament:String, viewModel: MatchViewModel = viewModel()){
                                 ) {
                                     // Texto en la parte superior de la tarjeta
                                     Text(
-                                        text = "PARTIDO ${id}",
+                                        //text = "PARTIDO ${id}",
+                                        text=stringResource(R.string.match) + "${id}",
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 20.sp
                                     )
                                     Spacer(modifier = Modifier.height(16.dp))
                                     Text(
-                                        text = "Resultado ${match.goalsFirst} vs ${match.goalsSecond}",
+                                        //text = "Resultado ${match.goalsFirst} vs ${match.goalsSecond}",
+                                        text = stringResource(R.string.result) + "${match.goalsFirst} vs ${match.goalsSecond}",
                                     )
                                     Text(
-                                        text = "Equipo ${match.playersOne[0].name}",
+                                        //text = "Equipo ${match.playersOne[0].name}",
+                                        text = stringResource(R.string.team) + "${match.playersOne[0].name}",
                                     )
                                     Text(
-                                        text = "contra",
+                                        //text = "contra",
+                                        text = stringResource(R.string.against),
                                     )
                                     Text(
-                                        text = "equipo ${match.playersSecond[0].name}",
+                                        //text = "equipo ${match.playersSecond[0].name}",
+                                        text = stringResource(R.string.team)+"${match.playersSecond[0].name}",
                                     )
 
                                     // Espaciador vertical
@@ -159,7 +166,7 @@ fun MatchTournament(tournament:String, viewModel: MatchViewModel = viewModel()){
                                         ),
                                     ) {
                                         // No hay icono en esta sección
-                                        Text(text = "Cambiar Resultado", color = Color.White)
+                                        Text(text = stringResource(R.string.change), color = Color.White)
                                     }
                                 }
                             }
