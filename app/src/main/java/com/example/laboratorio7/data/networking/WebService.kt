@@ -1,6 +1,7 @@
 package com.example.laboratorio7.data.networking
 import com.example.laboratorio7.data.networking.Response.UserDataResponse
 import com.example.laboratorio7.data.networking.Response.UserDataResponseRegister
+import com.example.laboratorio7.data.networking.Response.leagueDataResponse
 import com.example.laboratorio7.data.networking.Response.leaguesDataResponse
 import retrofit2.Retrofit
 import retrofit2.Call
@@ -38,6 +39,10 @@ class WebService {
     //ligas
     suspend fun getLeagues(  token: String): leaguesDataResponse {
         return api.getLeagues(token)
+    }
+
+    suspend fun saveLeague(  token: String, name:String, season:String, description:String): leagueDataResponse {
+        return api.saveLeague(token, LeagueRequest(name, season, description))
     }
 
 }

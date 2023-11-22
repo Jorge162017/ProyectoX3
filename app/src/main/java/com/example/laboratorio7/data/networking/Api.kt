@@ -2,6 +2,7 @@ package com.example.laboratorio7.data.networking
 import androidx.compose.ui.platform.LocalContext
 import com.example.laboratorio7.data.networking.Response.UserDataResponse
 import com.example.laboratorio7.data.networking.Response.UserDataResponseRegister
+import com.example.laboratorio7.data.networking.Response.leagueDataResponse
 import com.example.laboratorio7.data.networking.Response.leaguesDataResponse
 import retrofit2.Call
 import retrofit2.http.Body
@@ -28,15 +29,18 @@ interface  Api {
     @GET("getLeagues")
     suspend fun getLeagues(@Header("Authorization") authorizationHeader: String): leaguesDataResponse
 
+
+    @POST("saveLeague")
+    suspend fun saveLeague(@Header("Authorization") authorizationHeader: String, @Body leagueRequest: LeagueRequest): leagueDataResponse
+
 }
 
-
+//user
 data class LoginRequest(
     val username: String,
     val password: String,
     val getToken: Boolean
 )
-
 
 data class RegisterRequest(
     val name: String,
@@ -46,4 +50,11 @@ data class RegisterRequest(
     val phone: String,
     val role: String,
     val password: String
+)
+
+//leagues
+data class LeagueRequest(
+    val name: String,
+    val season: String,
+    val description: String
 )

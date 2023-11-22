@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class leaguesDataResponse(val leagues: List<LeagueResponse>)
 
 
-
+data class leagueDataResponse(val saveLeague: LeagueResponse)
 
 data class LeagueResponse(
     @SerializedName("_id") val id: String,
