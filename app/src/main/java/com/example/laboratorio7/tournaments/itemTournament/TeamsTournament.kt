@@ -18,6 +18,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -100,7 +102,7 @@ fun TeamsTournament(tournament:String,  viewModel: TeamViewModel = viewModel()){
                                 .fillMaxWidth()
                                 .padding(16.dp)
                                 .clip(RoundedCornerShape(8.dp))
-                                .background(Color.White)
+                                .background(Color(33, 37, 41))
                         ) {
                             Column(
                                 modifier = Modifier
@@ -140,14 +142,19 @@ fun TeamsTournament(tournament:String,  viewModel: TeamViewModel = viewModel()){
                                 Spacer(modifier = Modifier.height(16.dp))
 
                                 // Botón debajo del texto
-                                Button(
+                                IconButton(
                                     onClick = {
-                                        // Acción a realizar cuando se hace clic en el botón
+
                                     },
                                     modifier = Modifier
                                         .fillMaxWidth()
+                                        .padding(15.dp),
+                                    colors = IconButtonDefaults.iconButtonColors(
+                                        containerColor = Color(3, 121, 255)
+                                    ),
                                 ) {
-                                    Text(text = "Ver Plantilla")
+                                    // No hay icono en esta sección
+                                    Text(text = "Ver Plantilla", color = Color.White)
                                 }
                             }
                         }
