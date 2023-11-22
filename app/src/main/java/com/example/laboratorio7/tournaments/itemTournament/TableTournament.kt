@@ -132,7 +132,7 @@ fun DataRow(teamStats: TeamStats) {
     }
 }
 fun generateDummyData(): List<TeamStats> {
-    return List(10) { index ->
+    return List(1) { index ->
         TeamStats(
             index * 1,
             "TEAM",
@@ -147,3 +147,4 @@ fun generateDummyData(): List<TeamStats> {
         )
     }
 }
+
