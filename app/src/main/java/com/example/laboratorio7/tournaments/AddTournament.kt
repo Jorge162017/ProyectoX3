@@ -49,6 +49,9 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.laboratorio7.R
+import com.example.laboratorio7.auth.UserModel.UserViewModel
+import com.example.laboratorio7.data.networking.SharedPreferencesManager
+import com.example.laboratorio7.tournaments.TournamentModel.TournamentViewModel
 import com.example.laboratorio7.user.HomeModel.HomeViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -57,9 +60,9 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddTournament(navController: NavHostController) {
+fun AddTournament(navController: NavHostController,  viewModel: TournamentViewModel = viewModel()) {
     val context = LocalContext.current
-
+    var sharedPreferencesManager: SharedPreferencesManager = SharedPreferencesManager(context)
     var nameText by remember { mutableStateOf(TextFieldValue("")) }
     var seasonText by remember { mutableStateOf(TextFieldValue("")) }
     var textValue by remember { mutableStateOf(TextFieldValue("")) }
@@ -220,8 +223,34 @@ fun AddTournament(navController: NavHostController) {
             onClick = {
 
                 coroutineScope.launch {
+                    if (listOf(nameText.text, seasonText.text, textValue.text).all { it.isNotEmpty() }) {
+                        // Perform the operation
+                        viewModel.saveLeague(
+                            sharedPreferencesManager.getToken(),nameText.text, seasonText.text, textValue.text
+                        )
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "Completa todos los campos.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } //if para verficar que esten todos los campos
 
+                    delay(3000)
 
+                    if (!viewModel.tournamentUiState.saveLeague.name.equals("")) {
+                        navController.navigate("homeuser")
+
+                        Toast.makeText(context, "Se ha registrado exitosamente", Toast.LENGTH_SHORT)
+                            .show()
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "al parecer hay un problema con tus datos, intenta de nuevo",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                    }
 
                 }
 
