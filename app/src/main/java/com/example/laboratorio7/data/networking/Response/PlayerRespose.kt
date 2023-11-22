@@ -2,7 +2,9 @@ package com.example.laboratorio7.data.networking.Response
 
 import com.google.gson.annotations.SerializedName
 
-data class  PlayerDataResponse(val players: List<PlayerResponse>)
+data class  PlayersDataResponse(val players: List<PlayerResponse>)
+
+data class PlayerDataResponse (val setPlayerToTeam: PlayerResponse)
 
 data class PlayerResponse(
     @SerializedName("_id") val id: String,
