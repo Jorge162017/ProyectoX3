@@ -4,6 +4,8 @@ import com.example.laboratorio7.data.networking.Response.UserDataResponse
 import com.example.laboratorio7.data.networking.Response.UserDataResponseRegister
 import com.example.laboratorio7.data.networking.Response.leagueDataResponse
 import com.example.laboratorio7.data.networking.Response.leaguesDataResponse
+import com.example.laboratorio7.data.networking.Response.teamDataResponse
+import com.example.laboratorio7.data.networking.Response.teamsDataResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -33,6 +35,14 @@ interface  Api {
     @POST("saveLeague")
     suspend fun saveLeague(@Header("Authorization") authorizationHeader: String, @Body leagueRequest: LeagueRequest): leagueDataResponse
 
+    //equipos
+
+    @GET("getTeams")
+    suspend fun getTeams(@Header("Authorization") authorizationHeader: String): teamsDataResponse
+
+    @POST("saveTeam")
+    suspend fun saveTeam(@Header("Authorization") authorizationHeader: String, @Body teamRequest: TeamRequest): teamDataResponse
+
 }
 
 //user
@@ -57,4 +67,18 @@ data class LeagueRequest(
     val name: String,
     val season: String,
     val description: String
+)
+
+//teams
+data class TeamRequest(
+    val name: String,
+    val players: Array<String>,
+    val gc: Number,
+    val gd: Number,
+    val gf: Number,
+    val pe: Number,
+    val pg: Number,
+    val pj: Number,
+    val pp: Number,
+    val points: Number,
 )
