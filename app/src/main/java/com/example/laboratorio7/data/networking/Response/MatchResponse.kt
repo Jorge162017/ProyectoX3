@@ -20,3 +20,9 @@ data class MatchResponseCreate(
     @SerializedName("date") val date: String,
 )
 
+data class  sessionsDataResponse (val session: List<SessionResponse>)
+
+  data class SessionResponse(
+      @SerializedName("message") val message: String,
+      @SerializedName("session") val sessions: List<String>
+      )

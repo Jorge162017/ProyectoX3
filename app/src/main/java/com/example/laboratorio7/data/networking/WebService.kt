@@ -118,6 +118,11 @@ class WebService {
         return api.getSession(token, id)
     }
 
+    suspend fun setPlayerToTeam(  token: String, id:String, teams:String, sessions:String, name:String, season:String
+    , description: String, logo:String): leagueDataResponse {
+        return api.saveLeague(token, LeagueRequest(name, season, description))
+    }
+
 
 
 
