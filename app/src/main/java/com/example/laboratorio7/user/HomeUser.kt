@@ -77,6 +77,7 @@ fun HomeUser(navController: NavHostController, viewModel: HomeViewModel = viewMo
 
     var searchText by remember { mutableStateOf(TextFieldValue("")) }
 
+
     if (viewModel.homeUiState.leagues.isEmpty()) {
 
         viewModel.getLeagues(sharedPreferencesManager.getToken())
@@ -99,12 +100,7 @@ fun HomeUser(navController: NavHostController, viewModel: HomeViewModel = viewMo
                 verticalArrangement = Arrangement.Center
             ) {
                 Row {
-                    Icon(
-                        painter = painterResource(id = R.drawable.baseline_account_box_24),
-                        contentDescription = null,
-                        modifier = Modifier.size(50.dp),
-                        tint = Color(47, 47, 49)
-                    )
+                    Spacer(modifier = Modifier.width(15.dp))
                     TextField(
                         value = searchText, // Utiliza textValue como el valor del TextField
                         onValueChange = { newText ->
@@ -128,6 +124,21 @@ fun HomeUser(navController: NavHostController, viewModel: HomeViewModel = viewMo
                         ),
 
                         )
+                    Spacer(modifier = Modifier.width(50.dp))
+                    IconButton(
+                        onClick = {
+                            sharedPreferencesManager.savetoken("")
+                            navController.navigate("login")
+                        },
+                        modifier = Modifier.size(50.dp),
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.logout_user),
+                            contentDescription = null,
+                            modifier = Modifier.size(45.dp),
+                            tint = Color(47, 47, 49) // Cambia el color del icono según tus necesidades
+                        )
+                    }
 
                 }
             }
