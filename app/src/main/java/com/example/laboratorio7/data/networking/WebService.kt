@@ -1,4 +1,5 @@
 package com.example.laboratorio7.data.networking
+import com.example.laboratorio7.data.networking.Response.PlayerDataResponse
 import com.example.laboratorio7.data.networking.Response.UserDataResponse
 import com.example.laboratorio7.data.networking.Response.UserDataResponseRegister
 import com.example.laboratorio7.data.networking.Response.leagueDataResponse
@@ -41,8 +42,13 @@ class WebService {
         return api.getLeagues(token)
     }
 
+
     suspend fun saveLeague(  token: String, name:String, season:String, description:String): leagueDataResponse {
         return api.saveLeague(token, LeagueRequest(name, season, description))
+    }
+  //jugadores
+    suspend fun getPlayersTeam(  token: String): PlayerDataResponse {
+        return api.getPlayersTeam(token)
     }
 
 }

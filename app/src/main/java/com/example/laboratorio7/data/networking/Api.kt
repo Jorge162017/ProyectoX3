@@ -1,5 +1,6 @@
 package com.example.laboratorio7.data.networking
 import androidx.compose.ui.platform.LocalContext
+import com.example.laboratorio7.data.networking.Response.PlayerDataResponse
 import com.example.laboratorio7.data.networking.Response.UserDataResponse
 import com.example.laboratorio7.data.networking.Response.UserDataResponseRegister
 import com.example.laboratorio7.data.networking.Response.leagueDataResponse
@@ -30,6 +31,10 @@ interface  Api {
     suspend fun getLeagues(@Header("Authorization") authorizationHeader: String): leaguesDataResponse
 
 
+    @GET("getPlayersTeam")
+    suspend fun getPlayersTeam(@Header("Authorization") authorizationHeader: String): PlayerDataResponse
+
+
     @POST("saveLeague")
     suspend fun saveLeague(@Header("Authorization") authorizationHeader: String, @Body leagueRequest: LeagueRequest): leagueDataResponse
 
@@ -54,6 +59,13 @@ data class RegisterRequest(
 
 //leagues
 data class LeagueRequest(
+    val name: String,
+    val season: String,
+    val description: String
+)
+
+
+data class PlayerRequest(
     val name: String,
     val season: String,
     val description: String

@@ -20,3 +20,4 @@ data class UserResponse(
     @SerializedName("leagues") val leagues: Array<String>,
     @SerializedName("phone") val phone: String
 )
+
