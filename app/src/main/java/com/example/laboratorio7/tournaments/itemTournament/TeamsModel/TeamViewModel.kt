@@ -22,6 +22,12 @@ class TeamViewModel(private val repository: TeamRepository = TeamRepository()) :
         private set
 
 
+    var positionUiState by mutableStateOf(
+        PositionUiState(emptyList())
+    )
+        private set
+
+
 
     fun getTeams(token:String, id:String){
         teamUiState = TeamUiState(
@@ -43,6 +49,31 @@ class TeamViewModel(private val repository: TeamRepository = TeamRepository()) :
 
                 teamUiState = TeamUiState(
                     LeagueResponseTeam("", emptyArray(), emptyArray(),"","","",""), loading = false)
+            }
+        }
+    }
+
+
+    fun listaPosition(token:String, id:String){
+        positionUiState = PositionUiState(
+            emptyList(), loading = true)
+
+        viewModelScope.launch {
+            // Aquí deberías realizar la lógica de inicio de sesión con el repositorio
+            try {
+                val teamResponse = repository.listaPosition(token,id)
+                positionUiState = PositionUiState(teams = teamResponse.teams, loading = false)
+                Log.d("teams", "Response for team ${                positionUiState.teams
+                }")
+
+            } catch (e: Exception) {
+                // Maneja errores aquí
+
+                Log.d("error", "Response for login ${                e.printStackTrace()
+                }")
+
+                positionUiState = PositionUiState(
+                    emptyList(), loading = false)
             }
         }
     }

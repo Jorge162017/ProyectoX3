@@ -15,6 +15,13 @@ class TeamRepository( private val webService: WebService = WebService()){
     }
 
 
+    suspend fun listaPosition(token:String, id:String): teamsDataResponse {
+        return withContext(Dispatchers.IO) {
+            webService.listaPosition(token, id)
+        }
+    }
+
+
     suspend fun saveTeam(token: String, name: String, players: Array<String>, gc: Number, gd: Number,
                          gf: Number, pe: Number, pg: Number, pj: Number, pp: Number, points: Number): teamDataResponse {
         return withContext(Dispatchers.IO) {

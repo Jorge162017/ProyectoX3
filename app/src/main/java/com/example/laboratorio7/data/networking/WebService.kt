@@ -95,6 +95,10 @@ class WebService {
         return api.getLeagueTeam(token,id)
     }
 
+    suspend fun listaPosition(  token: String, id:String): teamsDataResponse {
+        return api.listaPosition(token,id)
+    }
+
     suspend fun saveTeam(  token: String, name: String, players: Array<String>, gc: Number, gd: Number,
                               gf: Number, pe: Number, pg: Number, pj: Number, pp: Number, points: Number): teamDataResponse {
         return api.saveTeam(token, TeamRequest(name, players, gc, gd, gf, pe, pg, pj, pp, points))

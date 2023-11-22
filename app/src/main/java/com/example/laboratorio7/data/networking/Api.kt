@@ -48,6 +48,8 @@ interface  Api {
 
     //equipos
 
+    @GET("listaPosition/{id}")
+    suspend fun listaPosition(@Header("Authorization") authorizationHeader: String, @Path("id") id: String): teamsDataResponse
     @GET("getLeagueTeam/{id}")
     suspend fun getLeagueTeam(@Header("Authorization") authorizationHeader: String, @Path("id") id: String): leagueTeamDataResponse
 
