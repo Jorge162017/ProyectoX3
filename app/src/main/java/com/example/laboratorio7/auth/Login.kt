@@ -264,12 +264,21 @@ fun Login(navController: NavHostController, viewModel: UserViewModel = viewModel
                 onClick = {
 
                     coroutineScope.launch {
+                        if (textValue.text.isEmpty() || passwordText.text.isEmpty()) {
+                            viewModel.login(
+                                textValue.text, passwordText.text
+                            )
+                        }else {
+                            // Muestra un mensaje de error
+                            Toast.makeText(
+                                context,
+                                "Completa todos los campos.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
 
-                        val result = viewModel.login(textValue.text, passwordText.text)
-
-
+                        //val result = viewModel.login(textValue.text, passwordText.text)
                     }
-
 
                 },
                 modifier = Modifier
