@@ -10,3 +10,10 @@ data class MatchResponse(
     @SerializedName("goalsFirst") val goalsFirst: Number,
     @SerializedName("goalsSecond") val goalsSecond: Number,
 )
+
+data class  sessionsDataResponse (val session: List<SessionResponse>)
+
+  data class SessionResponse(
+      @SerializedName("message") val message: String,
+      @SerializedName("session") val sessions: List<String>
+      )

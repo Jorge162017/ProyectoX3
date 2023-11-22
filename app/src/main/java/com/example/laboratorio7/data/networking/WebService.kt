@@ -1,7 +1,7 @@
 package com.example.laboratorio7.data.networking
 import android.graphics.Bitmap
 import androidx.compose.ui.graphics.ImageBitmap
-import com.example.laboratorio7.data.networking.Response.PlayerDataResponse
+import com.example.laboratorio7.data.networking.Response.PlayersDataResponse
 import com.example.laboratorio7.data.networking.Response.UserDataResponse
 import com.example.laboratorio7.data.networking.Response.UserDataResponseRegister
 import com.example.laboratorio7.data.networking.Response.leagueDataResponse
@@ -86,7 +86,7 @@ class WebService {
         return api.saveLeague(token, LeagueRequest(name, season, description))
     }
   //jugadores
-    suspend fun getPlayersTeam(  token: String): PlayerDataResponse {
+    suspend fun getPlayersTeam(  token: String): PlayersDataResponse {
         return api.getPlayersTeam(token)
     }
 
@@ -112,6 +112,10 @@ class WebService {
     suspend fun getSession(token: String,   id:String): sessionsDataResponse {
 
         return api.getSession(token,id)
+
+    suspend fun setPlayerToTeam(  token: String, id:String, teams:String, sessions:String, name:String, season:String
+    , description: String, logo:String): leagueDataResponse {
+        return api.saveLeague(token, LeagueRequest(name, season, description))
     }
 
 }
