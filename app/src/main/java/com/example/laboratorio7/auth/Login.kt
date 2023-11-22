@@ -264,7 +264,7 @@ fun Login(navController: NavHostController, viewModel: UserViewModel = viewModel
                 onClick = {
 
                     coroutineScope.launch {
-                        if (textValue.text.isEmpty() || passwordText.text.isEmpty()) {
+                        if (!textValue.text.isEmpty() || !passwordText.text.isEmpty()) {
                             viewModel.login(
                                 textValue.text, passwordText.text
                             )
