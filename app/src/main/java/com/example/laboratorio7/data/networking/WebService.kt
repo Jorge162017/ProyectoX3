@@ -95,6 +95,7 @@ class WebService {
         return api.getPlayersTeam(token)
     }
 
+<<<<<<< refs/remotes/origin/JorgeLopez
     //equipos
     suspend fun getLeagueTeam(  token: String, id:String): leagueTeamDataResponse {
         return api.getLeagueTeam(token,id)
@@ -117,6 +118,12 @@ class WebService {
     suspend fun getSession(token: String,   id:String): sessionsDataResponse {
 
         return api.getSession(token,id)
+=======
+
+    suspend fun setPlayerToTeam(  token: String, id:String, teams:String, sessions:String, name:String, season:String
+    , description: String, logo:String): leagueDataResponse {
+        return api.saveLeague(token, LeagueRequest(name, season, description))
+>>>>>>> cambios
     }
 
 }
