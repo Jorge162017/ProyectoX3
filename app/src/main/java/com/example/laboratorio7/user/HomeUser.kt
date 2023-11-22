@@ -37,6 +37,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -48,16 +49,36 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.laboratorio7.R
 import com.example.laboratorio7.models.Tournament
+import com.example.laboratorio7.user.HomeModel.HomeViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.laboratorio7.data.networking.SharedPreferencesManager
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.ui.text.style.TextAlign
+import coil.compose.AsyncImage
+
 
 val listTournaments = mutableListOf<Tournament>()
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
+
 @Composable
-fun HomeUser(navController: NavHostController) {
+fun HomeUser(navController: NavHostController, viewModel: HomeViewModel = viewModel()) {
+    val context = LocalContext.current
+    var sharedPreferencesManager: SharedPreferencesManager = SharedPreferencesManager(context)
 
     var searchText by remember { mutableStateOf(TextFieldValue("")) }
-    listTournaments.add(Tournament("DRAGONS LEAGUE", R.drawable.jack))
-    listTournaments.add(Tournament("LIGA ESTELAR", R.drawable.jack))
+
+    if (viewModel.homeUiState.leagues.isEmpty()) {
+
+        viewModel.getLeagues(sharedPreferencesManager.getToken())
+    }
+
+
+
 
     Column (
         verticalArrangement = Arrangement.Top,
@@ -125,31 +146,7 @@ fun HomeUser(navController: NavHostController) {
                 Text(text = "Football",
                     color = Color.White)
             }
-            Button(
-                onClick = {
 
-                },
-                modifier = Modifier,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor =  Color.Black
-                )
-            ){
-                Text(text = "Basketball",
-                    color = Color.White)
-            }
-
-            Button(
-                onClick = {
-
-                },
-                modifier = Modifier,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor =  Color.Black
-                )
-            ){
-                Text(text = "Volleyball",
-                    color = Color.White)
-            }
         }
         Column (
             modifier = Modifier.fillMaxWidth(),
@@ -157,7 +154,7 @@ fun HomeUser(navController: NavHostController) {
             verticalArrangement = Arrangement.Center
         ){
             Text(
-                text = "Basketball",
+                text = "Football",
                 modifier = Modifier.padding(start = 20.dp),
                 fontSize = 25.sp,
                 color = Color.White,
@@ -173,7 +170,40 @@ fun HomeUser(navController: NavHostController) {
             Spacer(modifier = Modifier.height(50.dp))
         }
 
-        Sidebar()
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(1),
+        ) {
+            items(viewModel.homeUiState.leagues) { league ->
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(1f)
+                        .clickable(onClick = {
+
+                        })
+                        .padding(start = 16.dp, top = 12.dp, bottom = 12.dp)
+                ) {
+                    AsyncImage(
+                            model = "https://tournament.workcodeinc.com:3800/torneo/getImageLeague/"+league.logo,
+                            contentDescription = null,
+                            modifier = Modifier.width(150.dp).padding(0.dp,0.dp,10.dp,0.dp),
+                        )
+
+                    Text(
+                        text = league.name,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White,
+                        fontSize = 16.sp,
+                        modifier = Modifier.align(Alignment.CenterVertically)
+                    )
+
+                }
+
+                Divider(color = Color(47, 47, 49), thickness = 0.2.dp)
+
+
+            }
+        }
 
     }
 

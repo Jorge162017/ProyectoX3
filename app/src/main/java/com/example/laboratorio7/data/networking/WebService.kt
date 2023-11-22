@@ -1,6 +1,7 @@
 package com.example.laboratorio7.data.networking
 import com.example.laboratorio7.data.networking.Response.UserDataResponse
 import com.example.laboratorio7.data.networking.Response.UserDataResponseRegister
+import com.example.laboratorio7.data.networking.Response.leaguesDataResponse
 import retrofit2.Retrofit
 import retrofit2.Call
 import retrofit2.converter.gson.GsonConverterFactory
@@ -19,7 +20,7 @@ class WebService {
         api = retrofit.create(Api::class.java)
     }
 
-
+    //usuarios
     suspend fun login(username: String, password: String): UserDataResponse {
         return api.login(LoginRequest(username, password, true))
     }
@@ -32,6 +33,11 @@ class WebService {
             name, lastname, username, email, phone, role, password)
         )
 
+    }
+
+    //ligas
+    suspend fun getLeagues(  token: String): leaguesDataResponse {
+        return api.getLeagues(token)
     }
 
 }
