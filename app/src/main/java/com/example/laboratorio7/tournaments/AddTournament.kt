@@ -61,11 +61,8 @@ fun AddTournament(navController: NavHostController) {
     val context = LocalContext.current
 
     var nameText by remember { mutableStateOf(TextFieldValue("")) }
-    var lastnameText by remember { mutableStateOf(TextFieldValue("")) }
+    var seasonText by remember { mutableStateOf(TextFieldValue("")) }
     var textValue by remember { mutableStateOf(TextFieldValue("")) }
-    var emailText by remember { mutableStateOf(TextFieldValue("")) }
-    var passwordText by remember { mutableStateOf(TextFieldValue("")) }
-    var phoneText by remember { mutableStateOf(TextFieldValue("")) }
     val coroutineScope = CoroutineScope(Dispatchers.Main)
 
     Column (
@@ -92,14 +89,14 @@ fun AddTournament(navController: NavHostController) {
                 )
             }
         }
-
+        Spacer(modifier = Modifier.height(40.dp))
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "AGREGAR TORNEO",
+                text = "CREAR TORNEO",
                 modifier = Modifier.padding(start = 20.dp),
                 fontSize = 25.sp,
                 color = Color.White,
@@ -111,7 +108,7 @@ fun AddTournament(navController: NavHostController) {
         //nombre
         Row {
             Icon(
-                painter = painterResource(id = R.drawable.baseline_account_box_24),
+                painter = painterResource(id = R.drawable.name_tournament),
                 contentDescription = null,
                 modifier = Modifier.size(50.dp),
                 tint = Color(47, 47, 49)
@@ -119,9 +116,7 @@ fun AddTournament(navController: NavHostController) {
             TextField(
                 value = nameText,
                 onValueChange = { newText ->
-                    if (newText.text.length <= 10) {
                         nameText = newText
-                    }
                 },
                 label = { Text("Nombre", color = Color(120, 120, 122)) },
                 singleLine = true,
@@ -143,23 +138,21 @@ fun AddTournament(navController: NavHostController) {
         }
         Spacer(modifier = Modifier.height(30.dp))
 
-        // apellido
+        // season
 
         Row {
             Icon(
-                painter = painterResource(id = R.drawable.baseline_account_box_24),
+                painter = painterResource(id = R.drawable.season_tournament),
                 contentDescription = null,
                 modifier = Modifier.size(50.dp),
                 tint = Color(47, 47, 49)
             )
             TextField(
-                value = lastnameText,
+                value = seasonText,
                 onValueChange = { newText ->
-                    if (newText.text.length <= 10) {
-                        lastnameText = newText
-                    }
+                        seasonText = newText
                 },
-                label = { Text("Apellido", color = Color(120, 120, 122)) },
+                label = { Text("Temporada", color = Color(120, 120, 122)) },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text,
@@ -179,10 +172,10 @@ fun AddTournament(navController: NavHostController) {
         }
         Spacer(modifier = Modifier.height(30.dp))
 
-        //username
+        //Descripcion
         Row {
             Icon(
-                painter = painterResource(id = R.drawable.baseline_account_box_24),
+                painter = painterResource(id = R.drawable.description_tournament),
                 contentDescription = null,
                 modifier = Modifier.size(50.dp),
                 tint = Color(47, 47, 49)
@@ -190,11 +183,9 @@ fun AddTournament(navController: NavHostController) {
             TextField(
                 value = textValue, // Utiliza textValue como el valor del TextField
                 onValueChange = { newText ->
-                    if (newText.text.length <= 10) {
                         textValue = newText // Actualiza textValue en lugar de text
-                    }
                 },
-                label = { Text("Username", color = Color(120, 120, 122)) },
+                label = { Text("Descripcion", color = Color(120, 120, 122)) },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text,
@@ -212,119 +203,8 @@ fun AddTournament(navController: NavHostController) {
                 )
 
         }
-        Spacer(modifier = Modifier.height(30.dp))
 
-        //password
-        Row {
-            Icon(
-                painter = painterResource(id = R.drawable.baseline_lock_24),
-                contentDescription = null,
-                modifier = Modifier.size(50.dp),
-                tint = Color(47, 47, 49)
-            )
-            TextField(
-                value = passwordText,
-                onValueChange = { newText ->
-                    if (newText.text.length <= 8) {
-                        passwordText = newText
-                    }
-                },
-                label = {
-                    Text(
-                        "Password (max 8 characters)", color = Color(120, 120, 122)
-                    )
-                },
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Password,
-                    imeAction = ImeAction.Done
-                ),
-                visualTransformation = PasswordVisualTransformation(),
-                modifier = Modifier,
-
-                shape = RoundedCornerShape(2.dp),
-                colors = TextFieldDefaults.textFieldColors(
-                    focusedIndicatorColor = Color(120, 120, 122),
-                    unfocusedIndicatorColor = Color(120, 120, 122),
-                    containerColor = Color(47, 47, 49)
-                ),
-
-
-                )
-        }
-        Spacer(modifier = Modifier.height(30.dp))
-        //email
-        Row {
-            Icon(
-                painter = painterResource(id = R.drawable.baseline_account_box_24),
-                contentDescription = null,
-                modifier = Modifier.size(50.dp),
-                tint = Color(47, 47, 49)
-            )
-            TextField(
-                value = emailText,
-                onValueChange = { newText ->
-                    if (newText.text.length <= 10) {
-                        emailText = newText
-                    }
-                },
-                label = { Text("Email", color = Color(120, 120, 122)) },
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Text,
-                    imeAction = ImeAction.Done
-                ),
-                modifier = Modifier,
-                shape = RoundedCornerShape(2.dp),
-                textStyle = TextStyle(color = Color(120, 120, 122)),
-                colors = TextFieldDefaults.textFieldColors(
-                    focusedIndicatorColor = Color(120, 120, 122),
-                    unfocusedIndicatorColor = Color(120, 120, 122),
-                    containerColor = Color(47, 47, 49)
-                ),
-
-                )
-
-        }
-        Spacer(modifier = Modifier.height(30.dp))
-
-        //phone
-        Row {
-            Icon(
-                painter = painterResource(id = R.drawable.phone),
-                contentDescription = null,
-                modifier = Modifier.size(50.dp),
-                tint = Color(47, 47, 49)
-            )
-            TextField(
-                value = phoneText, // Utiliza textValue como el valor del TextField
-                onValueChange = { newText ->
-                    if (newText.text.length <= 10) {
-                        phoneText = newText // Actualiza textValue en lugar de text
-                    }
-                },
-                label = { Text("Phone", color = Color(120, 120, 122)) },
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Text,
-                    imeAction = ImeAction.Done
-                ),
-                modifier = Modifier,
-                shape = RoundedCornerShape(2.dp),
-                textStyle = TextStyle(color = Color(120, 120, 122)),
-                colors = TextFieldDefaults.textFieldColors(
-                    focusedIndicatorColor = Color(120, 120, 122),
-                    unfocusedIndicatorColor = Color(120, 120, 122),
-                    containerColor = Color(47, 47, 49)
-                ),
-
-                )
-
-        }
-        Spacer(modifier = Modifier.height(30.dp))
-
-
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(40.dp))
         Divider(
             color = Color(120, 120, 122),
             thickness = 1.dp,
@@ -355,11 +235,11 @@ fun AddTournament(navController: NavHostController) {
             Row {
                 Icon(
                     imageVector = Icons.Default.Create,
-                    contentDescription = "Register",
+                    contentDescription = "Agregar Torneo",
                     tint = Color(255, 255, 255)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                Text(text = "Register", color = Color.White)
+                Text(text = "CREAR", color = Color.White)
             }
 
         }
