@@ -57,6 +57,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -104,7 +105,7 @@ fun addTeamTournament(navController: NavHostController, tournament:  String,  vi
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "TORNEOS X3",
+                    text = stringResource(R.string.tournament),
                     modifier = Modifier,
                     fontSize = 40.sp,
                     color = Color.White,
@@ -121,7 +122,7 @@ fun addTeamTournament(navController: NavHostController, tournament:  String,  vi
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "CREAR EQUIPO",
+                    text = stringResource(R.string.create),
                     modifier = Modifier.padding(start = 20.dp),
                     fontSize = 25.sp,
                     color = Color.White,
@@ -143,7 +144,7 @@ fun addTeamTournament(navController: NavHostController, tournament:  String,  vi
                     onValueChange = { newText ->
                         nameText = newText
                     },
-                    label = { Text("Nombre", color = Color(120, 120, 122)) },
+                    label = { Text(stringResource(R.string.name), color = Color(120, 120, 122)) },
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Text,
@@ -229,7 +230,7 @@ fun addTeamTournament(navController: NavHostController, tournament:  String,  vi
                         tint = Color(255, 255, 255)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(text = "CREAR", color = Color.White)
+                    Text(text = stringResource(R.string.create), color = Color.White)
                 }
 
             }
@@ -285,7 +286,7 @@ fun PhotoSelector() : Bitmap? {
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            text = "Click on the circle to select a photo",
+            text = stringResource(R.string.click),
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
         )
     }

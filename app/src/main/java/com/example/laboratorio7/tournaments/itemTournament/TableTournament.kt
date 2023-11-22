@@ -24,11 +24,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.laboratorio7.R
 import com.example.laboratorio7.data.networking.Response.TeamResponse
 import com.example.laboratorio7.data.networking.SharedPreferencesManager
 import com.example.laboratorio7.tournaments.itemTournament.TeamsModel.TeamViewModel
@@ -102,7 +104,7 @@ fun TableTournament(tournament:String, viewModel: TeamViewModel = viewModel()) {
                         .padding(5.dp)
                 ) {
                     Text(text = "#", modifier = Modifier.weight(1f),color= Color.White, fontSize = 12.sp,fontWeight = FontWeight.ExtraBold)
-                    Text(text = "Equipo", modifier = Modifier.weight(2f),color= Color.White, fontSize = 12.sp,fontWeight = FontWeight.ExtraBold)
+                    Text(text = stringResource(R.string.team), modifier = Modifier.weight(2f),color= Color.White, fontSize = 12.sp,fontWeight = FontWeight.ExtraBold)
                     Text(text = "PJ", modifier = Modifier.weight(1f),color= Color.White, fontSize = 12.sp,fontWeight = FontWeight.ExtraBold)
                     Text(text = "G", modifier = Modifier.weight(1f),color= Color.White, fontSize = 12.sp,fontWeight = FontWeight.ExtraBold)
                     Text(text = "E", modifier = Modifier.weight(1f),color= Color.White, fontSize = 12.sp,fontWeight = FontWeight.ExtraBold)

@@ -1,3 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">laboratorio7</string>
+    <string name="welcome">Welcome to X3</string>
+    <string name="credentials">Your credentials are incorrect</string>
+    <string name="login">Login</string>
+    <string name="signup">Sign Up</string>
+    <string name="maxUsername">Username (max 10 characters)</string>
+    <string name="maxPassword">Password (max 8 characters)</string>
+    <string name="complete">"Complete all fields."</string>
+    <string name="name">"Name"</string>
+    <string name="lastName">"Last Name"</string>
+    <string name="userName">"Username"</string>
+    <string name="email">"Email"</string>
+    <string name="phone">"Phone"</string>
+    <string name="successfully">"It has been successfully registered"</string>
+    <string name="register">"Register"</string>
+    <string name="tournament">"Tournament X3"</string>
+    <string name="create">"Create Team"</string>
+    <string name="click">"Click on the circle to select a photo"</string>
+    <string name="match">"MATCH"</string>
+    <string name="result">"Result"</string>
+    <string name="team">"Team"</string>
+    <string name="against">"Against"</string>
+    <string name="change">"Change"</string>
+    <string name="add">"Add Team"</string>
+    <string name="played">"Matches Played"</string>
+    <string name="won">"Matches Won"</string>
+    <string name="tied">"Tied matches"</string>
+    <string name="lost">"Lost Matches"</string>
+    <string name="view">"View Template"</string>
+    <string name="createT">"Crear Tournament"</string>
+    <string name="season">"Season"</string>
+    <string name="description">"Description"</string>
+    <string name="tournaments">"Tournaments"</string>
+    <string name="football">"Football"</string>
 </resources>

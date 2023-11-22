@@ -61,6 +61,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import coil.compose.AsyncImage
 import kotlinx.coroutines.launch
@@ -108,7 +109,7 @@ fun HomeUser(navController: NavHostController, viewModel: HomeViewModel = viewMo
                                 searchText = newText // Actualiza textValue en lugar de text
                             }
                         },
-                        label = { Text("Torneos", color = Color(120, 120, 122)) },
+                        label = { Text(stringResource(R.string.tournaments), color = Color(120, 120, 122)) },
                         singleLine = true,
                         keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Text,
@@ -159,7 +160,7 @@ fun HomeUser(navController: NavHostController, viewModel: HomeViewModel = viewMo
                     containerColor =  Color.Black
                 )
             ){
-                Text(text = "Football",
+                Text(text = stringResource(R.string.football),
                     color = Color.White)
             }
 
@@ -172,14 +173,14 @@ fun HomeUser(navController: NavHostController, viewModel: HomeViewModel = viewMo
             Row(){
                 Column{
                     Text(
-                        text = "Football",
+                        text = stringResource(R.string.football),
                         modifier = Modifier.padding(start = 20.dp),
                         fontSize = 25.sp,
                         color = Color.White,
                         fontWeight = FontWeight.Bold,
                     )
                     Text(
-                        text = "Torneos",
+                        text = stringResource(R.string.tournaments),
                         modifier = Modifier.padding(start = 20.dp),
                         fontSize = 15.sp,
                         color = Color.White,
@@ -206,7 +207,7 @@ fun HomeUser(navController: NavHostController, viewModel: HomeViewModel = viewMo
                             tint = Color(255, 255, 255)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(text = "Agregar Torneo", color = Color.White)
+                        Text(text = stringResource(R.string.createT), color = Color.White)
                     }
 
                 }

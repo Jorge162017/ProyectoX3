@@ -43,6 +43,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -85,7 +86,7 @@ fun Login(navController: NavHostController, viewModel: UserViewModel = viewModel
                 verticalArrangement = Arrangement.Center
             ){
                 Text(
-                    text = "Bienvenido a X3",
+                    text = stringResource(R.string.welcome),
                     modifier = Modifier,
                     fontSize = 40.sp,
                     color = Color.White,
@@ -118,7 +119,7 @@ fun Login(navController: NavHostController, viewModel: UserViewModel = viewModel
                 } else {
                     Toast.makeText(
                         context,
-                        "Tus credenciales son incorrectas.",
+                        stringResource(R.string.credentials),
                         Toast.LENGTH_SHORT
                     ).show()
 
@@ -140,7 +141,7 @@ fun Login(navController: NavHostController, viewModel: UserViewModel = viewModel
                     )
                 ) {
                     Text(
-                        text = "Login",
+                        text = stringResource(R.string.login),
                         color = Color.White
                     )
                 }
@@ -154,7 +155,7 @@ fun Login(navController: NavHostController, viewModel: UserViewModel = viewModel
                     )
                 ) {
                     Text(
-                        text = "Sign Up",
+                        stringResource(R.string.signup),
                         color = Color.White
                     )
                 }
@@ -165,7 +166,7 @@ fun Login(navController: NavHostController, viewModel: UserViewModel = viewModel
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "LOGIN",
+                    text = stringResource(R.string.login),
                     modifier = Modifier.padding(start = 20.dp),
                     fontSize = 25.sp,
                     color = Color.White,
@@ -189,7 +190,7 @@ fun Login(navController: NavHostController, viewModel: UserViewModel = viewModel
                     },
                     label = {
                         Text(
-                            "Username (max 10 characters)",
+                            stringResource(R.string.maxUsername),
                             color = Color(120, 120, 122)
                         )
                     },
@@ -227,7 +228,7 @@ fun Login(navController: NavHostController, viewModel: UserViewModel = viewModel
                     },
                     label = {
                         Text(
-                            "Password (max 8 characters)", color = Color(120, 120, 122)
+                            stringResource(R.string.maxPassword), color = Color(120, 120, 122)
                         )
                     },
                     singleLine = true,
@@ -294,7 +295,7 @@ fun Login(navController: NavHostController, viewModel: UserViewModel = viewModel
                         tint = Color(255, 255, 255)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(text = "Login", color = Color.White)
+                    Text(text = stringResource(R.string.login), color = Color.White)
                 }
 
             }
