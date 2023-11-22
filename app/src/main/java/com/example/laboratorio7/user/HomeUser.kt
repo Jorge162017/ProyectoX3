@@ -213,7 +213,7 @@ fun HomeUser(navController: NavHostController, viewModel: HomeViewModel = viewMo
                     modifier = Modifier
                         .fillMaxWidth(1f)
                         .clickable(onClick = {
-
+                                navController.navigate("viewTournament/"+league.id)
                         })
                         .padding(start = 16.dp, top = 12.dp, bottom = 12.dp)
                 ) {
