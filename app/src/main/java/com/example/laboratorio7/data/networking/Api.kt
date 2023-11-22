@@ -1,4 +1,6 @@
 package com.example.laboratorio7.data.networking
+import com.example.laboratorio7.data.networking.Response.MatchResponseCreate
+import com.example.laboratorio7.data.networking.Response.MatchResponseDelete
 import com.example.laboratorio7.data.networking.Response.PlayerDataResponse
 import com.example.laboratorio7.data.networking.Response.PlayersDataResponse
 import com.example.laboratorio7.data.networking.Response.UserDataResponse
@@ -67,10 +69,20 @@ interface  Api {
     @GET("getSession/{id}")
     suspend fun getSession(@Header("Authorization") authorizationHeader: String, @Path("id") id: String): sessionsDataResponse
 
+    @PUT("removeMatch/{id}")
+    suspend fun removeMatch(@Header("Authorization") authorizationHeader: String, @Path("id") id: String): MatchResponseDelete
 
 
+    @POST("createMatch/{id}")
+    suspend fun createMatch(@Header("Authorization") authorizationHeader: String, @Path("id") id: String
+    ,  @Body createMatchRequest: CreateMatchRequest): MatchResponseCreate
 
 }
+
+
+data class CreateMatchRequest(
+    val date: String,
+)
 
 data class SetTeamLeagueRequest(
     val _id: String,

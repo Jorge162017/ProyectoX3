@@ -9,15 +9,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -38,11 +42,18 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.laboratorio7.data.networking.SharedPreferencesManager
 import com.example.laboratorio7.tournaments.itemTournament.MatchModel.MatchViewModel
 import com.example.laboratorio7.user.HomeModel.HomeViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
 
 @Composable
 
 fun MatchTournament(tournament:String, viewModel: MatchViewModel = viewModel()){
     val context = LocalContext.current
+    val coroutineScope = CoroutineScope(Dispatchers.Main)
+
     var sharedPreferencesManager: SharedPreferencesManager = SharedPreferencesManager(context)
 
     if (viewModel.matchUiState.session.isEmpty()) {
@@ -88,6 +99,37 @@ fun MatchTournament(tournament:String, viewModel: MatchViewModel = viewModel()){
                         )
                     )
                 }
+            }
+
+            IconButton(
+
+                onClick = {
+                    coroutineScope.launch {
+
+                        viewModel.createMatch(sharedPreferencesManager.getToken(), tournament)
+                        delay(4000)
+
+                        viewModel.getSessions(sharedPreferencesManager.getToken(), tournament)
+
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(15.dp),
+                colors = IconButtonDefaults.iconButtonColors(
+                    containerColor = Color(3, 121, 255)
+                ),
+            ) {
+                Row {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "Agregar Equipo",
+                        tint = Color(255, 255, 255)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(text = "Generar Jornadas", color = Color.White)
+                }
+
             }
 
             Column (

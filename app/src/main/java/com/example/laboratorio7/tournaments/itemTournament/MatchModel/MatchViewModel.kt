@@ -11,6 +11,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.laboratorio7.auth.UserModel.UserUiState
 import com.example.laboratorio7.auth.UserModel.UserUiStateRegister
+import com.example.laboratorio7.data.networking.Response.MatchResponseCreate
+import com.example.laboratorio7.data.networking.Response.MatchResponseDelete
 import kotlinx.coroutines.launch
 
 
@@ -27,6 +29,12 @@ class MatchViewModel(private val repository: SessionRepository = SessionReposito
 
     var matchUiState by mutableStateOf(
         MatchUiState(emptyList())
+    )
+        private set
+
+
+    var matchCreateUiState by mutableStateOf(
+        MatchCreateUiState("")
     )
         private set
 
@@ -54,4 +62,32 @@ class MatchViewModel(private val repository: SessionRepository = SessionReposito
             }
         }
     }
+
+    fun createMatch(token:String, id:String){
+        matchCreateUiState = MatchCreateUiState(
+            "", loading = true)
+
+        viewModelScope.launch {
+            // Aquí deberías realizar la lógica de inicio de sesión con el repositorio
+            try {
+                val removeMatch = repository.removeMatch(token,id)
+
+                val createMatch = repository.createMatch(token,id, "2023-11-22")
+
+                matchCreateUiState = MatchCreateUiState(date = createMatch.date, loading = false)
+                Log.d("viewmodelMatch", "Response for match ${matchCreateUiState.date}")
+            } catch (e: Exception) {
+                // Maneja errores aquí
+
+                Log.d("error", "Response for login ${                e.printStackTrace()
+                }")
+
+                matchUiState = MatchUiState(
+                    emptyList(), loading = false)
+            }
+        }
+    }
+
+
+
 }
