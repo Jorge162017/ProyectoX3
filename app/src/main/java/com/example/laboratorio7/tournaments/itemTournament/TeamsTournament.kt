@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,8 +17,13 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,6 +38,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.compose.rememberImagePainter
 import com.example.laboratorio7.R
@@ -41,7 +48,7 @@ import com.example.laboratorio7.tournaments.itemTournament.TeamsModel.TeamViewMo
 
 
 @Composable
-fun TeamsTournament(tournament:String,  viewModel: TeamViewModel = viewModel()){
+fun TeamsTournament(navController: NavHostController, tournament:String, viewModel: TeamViewModel = viewModel()){
 
     val context = LocalContext.current
     var sharedPreferencesManager: SharedPreferencesManager = SharedPreferencesManager(context)
@@ -81,6 +88,34 @@ fun TeamsTournament(tournament:String,  viewModel: TeamViewModel = viewModel()){
                             lineHeight = 35.sp
                         )
                     )
+                }
+            }
+
+            Column (
+                modifier = Modifier.fillMaxWidth(),
+            ){
+                IconButton(
+
+                    onClick = {
+                        navController.navigate("addTeam")
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(15.dp),
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = Color(3, 121, 255)
+                    ),
+                ) {
+                    Row {
+                        Icon(
+                            imageVector = Icons.Default.Add,
+                            contentDescription = "Agregar Equipo",
+                            tint = Color(255, 255, 255)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(text = "Agregar Equipo", color = Color.White)
+                    }
+
                 }
             }
 

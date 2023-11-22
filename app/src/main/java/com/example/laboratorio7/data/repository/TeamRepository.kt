@@ -22,10 +22,16 @@ class TeamRepository( private val webService: WebService = WebService()){
     }
 
 
-    suspend fun saveTeam(token: String, name: String, players: Array<String>, gc: Number, gd: Number,
-                         gf: Number, pe: Number, pg: Number, pj: Number, pp: Number, points: Number): teamDataResponse {
+    suspend fun saveTeam(token: String, name: String): teamDataResponse {
         return withContext(Dispatchers.IO) {
-            webService.saveTeam(token, name, players, gc, gd, gf, pe, pg, pj, pp, points)
+            webService.saveTeam(token, name)
+        }
+    }
+
+
+    suspend fun setTeamLeague(token: String, id: String, _id:String): leagueTeamDataResponse {
+        return withContext(Dispatchers.IO) {
+            webService.setTeamLeague(token, id, _id)
         }
     }
 }

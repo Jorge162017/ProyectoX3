@@ -19,6 +19,7 @@ import com.example.laboratorio7.tournaments.NavBottom.BottomNavItem
 import com.example.laboratorio7.tournaments.itemTournament.MatchTournament
 import com.example.laboratorio7.tournaments.itemTournament.TableTournament
 import com.example.laboratorio7.tournaments.itemTournament.TeamsTournament
+import com.example.laboratorio7.tournaments.itemTournament.addTeamTournament
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "UnusedMaterialScaffoldPaddingParameter")
@@ -88,12 +89,15 @@ fun NavigationGraph(navController: NavHostController, tournament:String) {
             MatchTournament(tournament)
         }
         composable(BottomNavItem.Teams.screen_route) {
-            TeamsTournament(tournament)
+            TeamsTournament(navController,tournament)
         }
         composable(BottomNavItem.Table.screen_route) {
             TableTournament(tournament)
         }
 
+        composable("addTeam"){
+            addTeamTournament(navController = navController, tournament = tournament)
+        }
 
     }
 }
