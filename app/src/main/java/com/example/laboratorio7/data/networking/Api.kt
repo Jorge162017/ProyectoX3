@@ -1,5 +1,6 @@
 package com.example.laboratorio7.data.networking
 import com.example.laboratorio7.data.networking.Response.PlayerDataResponse
+import com.example.laboratorio7.data.networking.Response.PlayersDataResponse
 import com.example.laboratorio7.data.networking.Response.UserDataResponse
 import com.example.laboratorio7.data.networking.Response.UserDataResponseRegister
 import com.example.laboratorio7.data.networking.Response.leagueDataResponse
@@ -40,8 +41,9 @@ interface  Api {
 
 
     @GET("getPlayersTeam")
-    suspend fun getPlayersTeam(@Header("Authorization") authorizationHeader: String): PlayerDataResponse
-
+    suspend fun getPlayersTeam(@Header("Authorization") authorizationHeader: String): PlayersDataResponse
+    @POST("setPlayerToTeam")
+    suspend fun setPlayerToTeam(@Header("Authorization") authorizationHeader: String): PlayersDataResponse
 
     @POST("saveLeague")
     suspend fun saveLeague(@Header("Authorization") authorizationHeader: String, @Body leagueRequest: LeagueRequest): leagueDataResponse

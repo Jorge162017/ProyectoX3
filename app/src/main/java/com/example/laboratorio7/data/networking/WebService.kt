@@ -1,7 +1,12 @@
 package com.example.laboratorio7.data.networking
+<<<<<<< refs/remotes/origin/JorgeLopez
 import android.graphics.Bitmap
 import androidx.compose.ui.graphics.ImageBitmap
 import com.example.laboratorio7.data.networking.Response.PlayerDataResponse
+=======
+
+import com.example.laboratorio7.data.networking.Response.PlayersDataResponse
+>>>>>>> List Players and savePlayers
 import com.example.laboratorio7.data.networking.Response.UserDataResponse
 import com.example.laboratorio7.data.networking.Response.UserDataResponseRegister
 import com.example.laboratorio7.data.networking.Response.leagueDataResponse
@@ -86,7 +91,7 @@ class WebService {
         return api.saveLeague(token, LeagueRequest(name, season, description))
     }
   //jugadores
-    suspend fun getPlayersTeam(  token: String): PlayerDataResponse {
+    suspend fun getPlayersTeam(  token: String): PlayersDataResponse {
         return api.getPlayersTeam(token)
     }
 
