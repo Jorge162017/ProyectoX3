@@ -52,6 +52,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.laboratorio7.R
@@ -61,6 +62,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import java.security.AccessController.getContext
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -159,9 +161,7 @@ fun SignUp(navController: NavHostController,  viewModel: UserViewModel = viewMod
             TextField(
                 value = nameText,
                 onValueChange = { newText ->
-                    if (newText.text.length <= 10) {
                         nameText = newText
-                    }
                 },
                 label = { Text("Nombre", color = Color(120, 120, 122)) },
                 singleLine = true,
@@ -195,9 +195,7 @@ fun SignUp(navController: NavHostController,  viewModel: UserViewModel = viewMod
             TextField(
                 value = lastnameText,
                 onValueChange = { newText ->
-                    if (newText.text.length <= 10) {
                         lastnameText = newText
-                    }
                 },
                 label = { Text("Apellido", color = Color(120, 120, 122)) },
                 singleLine = true,
@@ -304,9 +302,7 @@ fun SignUp(navController: NavHostController,  viewModel: UserViewModel = viewMod
             TextField(
                 value = emailText,
                 onValueChange = { newText ->
-                    if (newText.text.length <= 10) {
                         emailText = newText
-                    }
                 },
                 label = { Text("Email", color = Color(120, 120, 122)) },
                 singleLine = true,
@@ -339,9 +335,7 @@ fun SignUp(navController: NavHostController,  viewModel: UserViewModel = viewMod
             TextField(
                 value = phoneText, // Utiliza textValue como el valor del TextField
                 onValueChange = { newText ->
-                    if (newText.text.length <= 10) {
                         phoneText = newText // Actualiza textValue en lugar de text
-                    }
                 },
                 label = { Text("Phone", color = Color(120, 120, 122)) },
                 singleLine = true,
@@ -380,11 +374,19 @@ fun SignUp(navController: NavHostController,  viewModel: UserViewModel = viewMod
             onClick = {
 
                 coroutineScope.launch {
-
-                    viewModel.register(
-                        nameText.text, lastnameText.text, textValue.text, emailText.text, phoneText.text,"ROLE_USER",
-                        passwordText.text
-                    )
+                    if (listOf(nameText.text, lastnameText.text, textValue.text, emailText.text, phoneText.text).all { it.isNotEmpty() }) {
+                        // Perform the operation
+                        viewModel.register(
+                            nameText.text, lastnameText.text, textValue.text, emailText.text, phoneText.text, "ROLE_USER",
+                            passwordText.text
+                        )
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "Completa todos los campos.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } //if para verficar que esten todos los campos
 
                     delay(3000)
 
