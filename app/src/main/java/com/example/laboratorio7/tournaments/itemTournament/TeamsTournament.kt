@@ -9,6 +9,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -21,17 +25,32 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
 import coil.compose.rememberImagePainter
 import com.example.laboratorio7.R
+import com.example.laboratorio7.data.networking.SharedPreferencesManager
+import com.example.laboratorio7.tournaments.itemTournament.MatchModel.MatchViewModel
+import com.example.laboratorio7.tournaments.itemTournament.TeamsModel.TeamViewModel
 
 
 @Composable
-fun TeamsTournament(tournament:String){
+fun TeamsTournament(tournament:String,  viewModel: TeamViewModel = viewModel()){
+
+    val context = LocalContext.current
+    var sharedPreferencesManager: SharedPreferencesManager = SharedPreferencesManager(context)
+
+    if (viewModel.teamUiState.ls.teams.isEmpty()) {
+
+        viewModel.getTeams(sharedPreferencesManager.getToken(), tournament)
+    }
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = Color.Black
@@ -40,7 +59,6 @@ fun TeamsTournament(tournament:String){
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
-                .verticalScroll(rememberScrollState())
                 .padding(bottom = 50.dp)
         ) {
             Surface(
@@ -71,114 +89,73 @@ fun TeamsTournament(tournament:String){
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Center
             ) {
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(Color.White)
+
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(1),
                 ) {
-                    Column(
-                        modifier = Modifier
-                            .padding(16.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.prueba),
-                            contentDescription = null,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                        // Texto en la parte superior de la tarjeta
-                        Text(
-                            text = "EQUIPO 1",
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 20.sp
-                        )
-                        Text(
-                            text = "Partidos Jugados(PJ): 3",
-                        )
-                        Text(
-                            text = "Partidos Ganados(PG): 2",
-                            color = Color(56, 176, 0)
-                        )
-                        Text(
-                            text = "Partidos Empatados(PE): 1",
-                            color = Color(250, 163, 7)
-                        )
-                        Text(
-                            text = "Partidos Perdidos(PP): 0",
-                            color = Color(208, 0, 0)
-                        )
+                    items(viewModel.teamUiState.ls.teams) { team ->
 
-                        // Espaciador vertical
-                        Spacer(modifier = Modifier.height(16.dp))
-
-                        // Botón debajo del texto
-                        Button(
-                            onClick = {
-                                // Acción a realizar cuando se hace clic en el botón
-                            },
+                        Card(
                             modifier = Modifier
                                 .fillMaxWidth()
+                                .padding(16.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(Color.White)
                         ) {
-                            Text(text = "Ver Plantilla")
+                            Column(
+                                modifier = Modifier
+                                    .padding(16.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                AsyncImage(
+                                    model = "https://tournament.workcodeinc.com:3800/torneo/getImageLeague/"+team.logo,
+                                    contentDescription = null,
+                                    modifier = Modifier
+
+                                        .padding(0.dp, 0.dp, 10.dp, 0.dp),
+                                )
+                                // Texto en la parte superior de la tarjeta
+                                Text(
+                                    text = team.name,
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 20.sp
+                                )
+                                Text(
+                                    text = "Partidos Jugados(PJ): ${team.pj}",
+                                )
+                                Text(
+                                    text = "Partidos Ganados(PG): ${team.pg}",
+                                    color = Color(56, 176, 0)
+                                )
+                                Text(
+                                    text = "Partidos Empatados(PE): ${team.pe}",
+                                    color = Color(250, 163, 7)
+                                )
+                                Text(
+                                    text = "Partidos Perdidos(PP): ${team.pp}",
+                                    color = Color(208, 0, 0)
+                                )
+
+                                // Espaciador vertical
+                                Spacer(modifier = Modifier.height(16.dp))
+
+                                // Botón debajo del texto
+                                Button(
+                                    onClick = {
+                                        // Acción a realizar cuando se hace clic en el botón
+                                    },
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                ) {
+                                    Text(text = "Ver Plantilla")
+                                }
+                            }
                         }
+
                     }
                 }
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(Color.White)
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .padding(16.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.prueba2),
-                            contentDescription = null,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                        // Texto en la parte superior de la tarjeta
-                        Text(
-                            text = "EQUIPO 2",
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 20.sp
-                        )
-                        Text(
-                            text = "Partidos Jugados(PJ): 3",
-                        )
-                        Text(
-                            text = "Partidos Ganados(PG): 1",
-                            color = Color(56, 176, 0)
-                        )
-                        Text(
-                            text = "Partidos Empatados(PE): 1",
-                            color = Color(250, 163, 7)
-                        )
-                        Text(
-                            text = "Partidos Perdidos(PP): 1",
-                            color = Color(208, 0, 0)
-                        )
 
-                        // Espaciador vertical
-                        Spacer(modifier = Modifier.height(16.dp))
 
-                        // Botón debajo del texto
-                        Button(
-                            onClick = {
-                                // Acción a realizar cuando se hace clic en el botón
-                            },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                        ) {
-                            Text(text = "Ver Plantilla")
-                        }
-                    }
-                }
             }
         }
     }

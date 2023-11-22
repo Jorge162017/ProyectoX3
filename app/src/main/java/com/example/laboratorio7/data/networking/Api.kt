@@ -4,6 +4,7 @@ import com.example.laboratorio7.data.networking.Response.UserDataResponse
 import com.example.laboratorio7.data.networking.Response.UserDataResponseRegister
 import com.example.laboratorio7.data.networking.Response.leagueDataResponse
 import com.example.laboratorio7.data.networking.Response.leagueImageDataResponse
+import com.example.laboratorio7.data.networking.Response.leagueTeamDataResponse
 import com.example.laboratorio7.data.networking.Response.leaguesDataResponse
 import com.example.laboratorio7.data.networking.Response.sessionsDataResponse
 import com.example.laboratorio7.data.networking.Response.teamDataResponse
@@ -47,8 +48,8 @@ interface  Api {
 
     //equipos
 
-    @GET("getTeams")
-    suspend fun getTeams(@Header("Authorization") authorizationHeader: String): teamsDataResponse
+    @GET("getLeagueTeam/{id}")
+    suspend fun getLeagueTeam(@Header("Authorization") authorizationHeader: String, @Path("id") id: String): leagueTeamDataResponse
 
     @POST("saveTeam")
     suspend fun saveTeam(@Header("Authorization") authorizationHeader: String, @Body teamRequest: TeamRequest): teamDataResponse
@@ -57,6 +58,10 @@ interface  Api {
 
     @GET("getSession/{id}")
     suspend fun getSession(@Header("Authorization") authorizationHeader: String, @Path("id") id: String): sessionsDataResponse
+
+
+
+
 }
 
 //user

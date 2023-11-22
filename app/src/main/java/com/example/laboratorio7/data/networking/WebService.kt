@@ -6,6 +6,7 @@ import com.example.laboratorio7.data.networking.Response.UserDataResponse
 import com.example.laboratorio7.data.networking.Response.UserDataResponseRegister
 import com.example.laboratorio7.data.networking.Response.leagueDataResponse
 import com.example.laboratorio7.data.networking.Response.leagueImageDataResponse
+import com.example.laboratorio7.data.networking.Response.leagueTeamDataResponse
 import com.example.laboratorio7.data.networking.Response.leaguesDataResponse
 import com.example.laboratorio7.data.networking.Response.sessionsDataResponse
 import com.example.laboratorio7.data.networking.Response.teamDataResponse
@@ -90,8 +91,8 @@ class WebService {
     }
 
     //equipos
-    suspend fun getTeams(  token: String): teamsDataResponse{
-        return api.getTeams(token)
+    suspend fun getLeagueTeam(  token: String, id:String): leagueTeamDataResponse {
+        return api.getLeagueTeam(token,id)
     }
 
     suspend fun saveTeam(  token: String, name: String, players: Array<String>, gc: Number, gd: Number,

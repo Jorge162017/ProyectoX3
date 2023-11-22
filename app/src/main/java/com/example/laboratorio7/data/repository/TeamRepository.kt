@@ -1,5 +1,6 @@
 package com.example.laboratorio7.data.repository
 
+import com.example.laboratorio7.data.networking.Response.leagueTeamDataResponse
 import com.example.laboratorio7.data.networking.Response.teamDataResponse
 import com.example.laboratorio7.data.networking.Response.teamsDataResponse
 import com.example.laboratorio7.data.networking.WebService
@@ -7,9 +8,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class TeamRepository( private val webService: WebService = WebService()){
-    suspend fun getTeams(token:String): teamsDataResponse {
+    suspend fun getLeagueTeam(token:String, id:String): leagueTeamDataResponse {
         return withContext(Dispatchers.IO) {
-            webService.getTeams(token)
+            webService.getLeagueTeam(token, id)
         }
     }
 
