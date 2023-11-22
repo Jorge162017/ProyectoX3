@@ -23,10 +23,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.laboratorio7.data.networking.Response.TeamResponse
+import com.example.laboratorio7.data.networking.SharedPreferencesManager
+import com.example.laboratorio7.tournaments.itemTournament.TeamsModel.TeamViewModel
 
 data class TeamStats(
     val posicion: Int,
@@ -42,7 +47,15 @@ data class TeamStats(
 )
 
 @Composable
-fun TableTournament(tournament:String) {
+fun TableTournament(tournament:String, viewModel: TeamViewModel = viewModel()) {
+
+    val context = LocalContext.current
+    var sharedPreferencesManager: SharedPreferencesManager = SharedPreferencesManager(context)
+
+    if (viewModel.positionUiState.teams.isEmpty()) {
+
+        viewModel.listaPosition(sharedPreferencesManager.getToken(), tournament)
+    }
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = Color.Black
@@ -88,22 +101,23 @@ fun TableTournament(tournament:String) {
                         .background(MaterialTheme.colorScheme.surface)
                         .padding(5.dp)
                 ) {
-                    Text(text = "#", modifier = Modifier.weight(1f), fontSize = 12.sp,fontWeight = FontWeight.ExtraBold)
-                    Text(text = "Equipo", modifier = Modifier.weight(2f), fontSize = 12.sp,fontWeight = FontWeight.ExtraBold)
-                    Text(text = "PJ", modifier = Modifier.weight(1f), fontSize = 12.sp,fontWeight = FontWeight.ExtraBold)
-                    Text(text = "G", modifier = Modifier.weight(1f), fontSize = 12.sp,fontWeight = FontWeight.ExtraBold)
-                    Text(text = "E", modifier = Modifier.weight(1f), fontSize = 12.sp,fontWeight = FontWeight.ExtraBold)
-                    Text(text = "P", modifier = Modifier.weight(1f), fontSize = 12.sp,fontWeight = FontWeight.ExtraBold)
-                    Text(text = "GC", modifier = Modifier.weight(1f), fontSize = 12.sp,fontWeight = FontWeight.ExtraBold)
-                    Text(text = "GF", modifier = Modifier.weight(1f), fontSize = 12.sp,fontWeight = FontWeight.ExtraBold)
-                    Text(text = "GD", modifier = Modifier.weight(1f), fontSize = 12.sp,fontWeight = FontWeight.ExtraBold)
+                    Text(text = "#", modifier = Modifier.weight(1f),color= Color.White, fontSize = 12.sp,fontWeight = FontWeight.ExtraBold)
+                    Text(text = "Equipo", modifier = Modifier.weight(2f),color= Color.White, fontSize = 12.sp,fontWeight = FontWeight.ExtraBold)
+                    Text(text = "PJ", modifier = Modifier.weight(1f),color= Color.White, fontSize = 12.sp,fontWeight = FontWeight.ExtraBold)
+                    Text(text = "G", modifier = Modifier.weight(1f),color= Color.White, fontSize = 12.sp,fontWeight = FontWeight.ExtraBold)
+                    Text(text = "E", modifier = Modifier.weight(1f),color= Color.White, fontSize = 12.sp,fontWeight = FontWeight.ExtraBold)
+                    Text(text = "P", modifier = Modifier.weight(1f),color= Color.White, fontSize = 12.sp,fontWeight = FontWeight.ExtraBold)
+                    Text(text = "GC", modifier = Modifier.weight(1f),color= Color.White, fontSize = 12.sp,fontWeight = FontWeight.ExtraBold)
+                    Text(text = "GF", modifier = Modifier.weight(1f),color= Color.White, fontSize = 12.sp,fontWeight = FontWeight.ExtraBold)
+                    Text(text = "GD", modifier = Modifier.weight(1f),color= Color.White, fontSize = 12.sp,fontWeight = FontWeight.ExtraBold)
                     Text(text = "PTS", modifier = Modifier.weight(1f), fontSize = 12.sp,fontWeight = FontWeight.ExtraBold, color = Color(30, 136, 229))
                 }
 
-                val teamsData = generateDummyData()
+                var id = 0;
                 LazyColumn {
-                    items(teamsData) { teamStats ->
-                        DataRow(teamStats)
+                    items(viewModel.positionUiState.teams) { team ->
+                        id =id++
+                        DataRow(id, team)
                     }
                 }
             }
@@ -111,7 +125,7 @@ fun TableTournament(tournament:String) {
     }
 }
 @Composable
-fun DataRow(teamStats: TeamStats) {
+fun DataRow(id:Number, teamStats: TeamResponse) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -119,32 +133,17 @@ fun DataRow(teamStats: TeamStats) {
             .padding(5.dp)
             //.border(width = 1.dp, color = Color.Gray)
     ) {
-        Text(text = "${teamStats.posicion}", modifier = Modifier.weight(1f),fontSize = 12.sp)
-        Text(text = "${teamStats.equipo}", modifier = Modifier.weight(2f),fontSize = 12.sp)
-        Text(text = "${teamStats.PJ}", modifier = Modifier.weight(1f),fontSize = 12.sp)
-        Text(text = "${teamStats.PG}", modifier = Modifier.weight(1f),fontSize = 12.sp)
-        Text(text = "${teamStats.PE}", modifier = Modifier.weight(1f),fontSize = 12.sp)
-        Text(text = "${teamStats.PP}", modifier = Modifier.weight(1f),fontSize = 12.sp)
-        Text(text = "${teamStats.GC}", modifier = Modifier.weight(1f),fontSize = 12.sp)
-        Text(text = "${teamStats.GF}", modifier = Modifier.weight(1f),fontSize = 12.sp)
-        Text(text = "${teamStats.GD}", modifier = Modifier.weight(1f),fontSize = 12.sp)
-        Text(text = "${teamStats.PTS}", modifier = Modifier.weight(1f),fontSize = 12.sp, color = Color(30, 136, 229))
+        Text(text = "${id}", modifier = Modifier.weight(1f), color= Color.White,fontSize = 12.sp)
+        Text(text = "${teamStats.name}", modifier = Modifier.weight(2f), color= Color.White,fontSize = 12.sp)
+        Text(text = "${teamStats.pj}", modifier = Modifier.weight(1f), color= Color.White,fontSize = 12.sp)
+        Text(text = "${teamStats.pg}", modifier = Modifier.weight(1f), color= Color.White,fontSize = 12.sp)
+        Text(text = "${teamStats.pe}", modifier = Modifier.weight(1f), color= Color.White,fontSize = 12.sp)
+        Text(text = "${teamStats.pp}", modifier = Modifier.weight(1f), color= Color.White,fontSize = 12.sp)
+        Text(text = "${teamStats.gc}", modifier = Modifier.weight(1f), color= Color.White,fontSize = 12.sp)
+        Text(text = "${teamStats.gf}", modifier = Modifier.weight(1f), color= Color.White,fontSize = 12.sp)
+        Text(text = "${teamStats.gd}", modifier = Modifier.weight(1f), color= Color.White,fontSize = 12.sp)
+        Text(text = "${teamStats.points}", modifier = Modifier.weight(1f), fontSize = 12.sp, color = Color(30, 136, 229))
     }
 }
-fun generateDummyData(): List<TeamStats> {
-    return List(1) { index ->
-        TeamStats(
-            index * 1,
-            "TEAM",
-            index * 2,
-            index * 2,
-            index + 1,
-            index + 3,
-            index * 4,
-            index * 2,
-            index * 5,
-            index * 5
-        )
-    }
-}
+
 

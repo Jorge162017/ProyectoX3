@@ -9,3 +9,15 @@ data class TeamUiState (
     val ls: LeagueResponseTeam,
     val loading: Boolean = false,
 )
+
+
+data class TeamSaveUiState (
+    val saveTeam: TeamResponse,
+    val loading: Boolean = false,
+)
+
+
+data class PositionUiState (
+    val teams: List<TeamResponse>,
+    val loading: Boolean = false,
+)

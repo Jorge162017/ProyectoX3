@@ -15,6 +15,7 @@ data class TeamResponse (
     @SerializedName("PG") val pg: Number,
     @SerializedName("PJ") val pj: Number,
     @SerializedName("PP") val pp: Number,
+    @SerializedName("GF") val gf: Number,
     @SerializedName("points") val points: Number,
     @SerializedName("Logo") val logo: String,
 )

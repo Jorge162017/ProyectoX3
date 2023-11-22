@@ -48,11 +48,17 @@ interface  Api {
 
     //equipos
 
+    @GET("listaPosition/{id}")
+    suspend fun listaPosition(@Header("Authorization") authorizationHeader: String, @Path("id") id: String): teamsDataResponse
     @GET("getLeagueTeam/{id}")
     suspend fun getLeagueTeam(@Header("Authorization") authorizationHeader: String, @Path("id") id: String): leagueTeamDataResponse
 
     @POST("saveTeam")
     suspend fun saveTeam(@Header("Authorization") authorizationHeader: String, @Body teamRequest: TeamRequest): teamDataResponse
+
+
+    @PUT("setTeamLeague/{id}")
+    suspend fun setTeamLeague(@Header("Authorization") authorizationHeader: String, @Path("id") id: String, @Body setTeamLeagueRequest: SetTeamLeagueRequest): leagueTeamDataResponse
 
     //sessions
 
@@ -63,6 +69,10 @@ interface  Api {
 
 
 }
+
+data class SetTeamLeagueRequest(
+    val _id: String,
+)
 
 //user
 data class LoginRequest(
@@ -97,14 +107,5 @@ data class PlayerRequest(
 )
 //teams
 data class TeamRequest(
-    val name: String,
-    val players: Array<String>,
-    val gc: Number,
-    val gd: Number,
-    val gf: Number,
-    val pe: Number,
-    val pg: Number,
-    val pj: Number,
-    val pp: Number,
-    val points: Number,
+    val name: String
 )
